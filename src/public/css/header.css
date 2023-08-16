@@ -1,0 +1,123 @@
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+   color: #bebcc0;
+   margin-left: 15px;
+    /* background-color: hsla(0,0%,100%,0.1); */
+  }
+
+.nav-header{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    height: 70px;
+    border-bottom: solid 1px #2b2533;
+   
+}
+
+.nav-header__controllers{
+    display: flex;
+    max-width: 530px;
+    align-items: center;
+}
+
+.controllers-button{
+    display: flex;
+    color: var(--white-color);
+}
+
+.cotrollers-button__prev{
+    padding-right: 16px;
+}
+
+.cotrollers-button__next{
+    padding-left: 16px;
+    
+}
+
+.controllers-search{
+    width: 50rem;
+    /* background-color: transparent; */
+    height: 35px;
+    border-radius: 20px;
+    box-shadow: 0 0 1px black;
+    background-color: hsla(0,0%,100%,0.1);
+
+}
+
+.controllers-search__input{
+    width: 90%;
+    height: 100%;
+    outline: none;
+    border: none;
+    margin-left: 12px;
+    color: white;
+    background-color: transparent;
+
+    
+
+}
+
+.nav-header__personal{
+  display: flex;
+  align-items: center;
+}
+
+.nav-header__personal--setting{
+    display: flex;
+    width: 40px;
+    height: 40px;
+    color: var(--white-color);
+    font-size: 1.8rem;
+    border-radius: 50%;
+    background-color: hsla(0,0%,100%,0.1);
+    justify-content: center;
+    align-items: center;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.dropdown-menu__setting{
+    background-color: var(--primary-dropdown);
+    width: 24rem;
+    height: 34rem;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.dropdown-menu__setting--item{
+    color: #7c728c ;
+    line-height: 50px;
+}
+
+.dropdown-menu__setting--item:hover{
+    background-color: #7c728c ;
+    color: var(--white-color) !important;
+}
+
+.dropdown-menu__setting--item span{
+    width: 160px;
+}
+
+.dropdown-menu__setting--item i:not(.fa-chevron-right){
+    width: 30px;
+}
+
+.nav-header__personal--account{
+    width: 40px;
+}
+
+.personal-account__image{
+    width: 100%;
+    border-radius: 50%;
+}
+
+.dropdown-menu__account{
+    width: 35rem;
+    height: 15rem;
+    background-color: var(--primary-dropdown);
+    border-radius: 15px;
+}
+
+.dropdown-menu__account--item:hover{
+    background-color: transparent;
+}
+
