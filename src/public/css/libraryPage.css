@@ -1,0 +1,49 @@
+.library-header__icon-play{
+    width: 30px;
+    height: 30px;
+    background-color: var(--white-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    
+}
+
+.library-nav .nav-underline{
+    border-bottom: solid 1px var(--boder-color);
+}
+
+.library-nav .nav-item .nav-link{
+    color: #ccc;
+    text-decoration: none;
+}
+
+.library-nav .nav-item .nav-link.active{
+    border-bottom: solid 2px var(--boder-color-active);
+}
+
+.library-empty{
+    display: flex;
+    flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: 70%;
+}
+
+.library-empty__icon{
+    font-size: 70px;
+    opacity: 0.2;
+}
+
+.library-empty__title{
+    margin-top: 8px;
+  color: #ccc;
+}
+
+.library-empty__discover{
+    margin-top: 24px;
+    padding: 4px 16px;
+    background-color: var(--boder-color-active);
+    border-radius: 20px;
+
+}

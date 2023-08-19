@@ -20,7 +20,17 @@ body{
     --black-color:#000;
     --blur-black:#333;
     --boder-color:#2b2533;
+    --boder-color-active:#9b4de0;
     --primary-dropdown:#34224f;
+    --text-blur:#827e87;
+}
+
+.min-width{
+    min-width: 900px;
+}
+
+.row.container-app{
+    background-color: var(--primary-color);
 }
 
 .ms-8{
@@ -55,3 +65,4 @@ body{
 .p-16{
     padding: 0 16px !important;
 }
+

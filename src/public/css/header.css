@@ -4,13 +4,21 @@
     /* background-color: hsla(0,0%,100%,0.1); */
   }
 
+.header_and_content{
+    height: 70px;
+}
+
 .nav-header{
     display: flex;
     justify-content: space-between;
     font-size: 1.4rem;
     height: 70px;
-    border-bottom: solid 1px #2b2533;
-   
+    position: fixed;
+    z-index: 1;
+    right: 0;
+    left: 16.5%;
+    background-color: rgba(23, 15, 35, 0.8);
+    backdrop-filter: blur(20px);
 }
 
 .nav-header__controllers{

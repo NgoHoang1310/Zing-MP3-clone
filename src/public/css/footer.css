@@ -5,6 +5,20 @@
 .enable {
     display: block !important;
 }
+.active {
+    color: #a260c6 !important;
+}
+
+.btn-hover {
+    border-radius: 50%;
+    transition: all linear 0.2s;
+}
+
+.btn-hover:hover {
+   
+    border: solid 1px #a260c6 !important;
+    opacity: 0.8;
+}
 
 .player-music-center{
     height: calc(100vh - 90vh);
@@ -62,14 +76,14 @@
     background-color: white;
 }
 
-.input-range{
+.input-range__volume{
     appearance: none;
     height: 3px;
     background-color: #ccc;
     border-radius: 4px;
 }
 
-.input-range::-webkit-slider-thumb{
+.input-range__volume::-webkit-slider-thumb{
     appearance: none;
     width: 12px;
     height: 12px;
