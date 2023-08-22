@@ -1,7 +1,3 @@
-<?php
-$sql = "SELECT * FROM Songs";
-$result = $conn->query($sql);
-?>
 <!-- content -->
 <div class="main-content">
     <div class="library-header">
@@ -34,8 +30,12 @@ $result = $conn->query($sql);
                 <h2 class="">Bài hát</h2>
             </div>
             <div class="library-songItem me-3">
-                <?php while ($row = $result->fetch_assoc()) { ?>
-                    <div class=" col-12 new_release__song d-flex text-white justify-content-around align-items-center mt-3">
+                <?php
+                include_once('../model/connectDB.php');
+                $sql = "SELECT * FROM Songs";
+                $result = $conn->query($sql);
+                while ($row = $result->fetch_assoc()) { ?>
+                    <div id="<?php echo $row['song_id'] ?>" class=" col-12 new_release__song d-flex text-white justify-content-around align-items-center mt-3" onclick="controllerMusic.clickOnSong(this.id)" >
                         <img src="<?php echo $row['image']; ?>" alt="" class="song__image ">
                         <div class="song__name flex-fill ms-5">
                             <h3><?php echo $row['title']; ?></h3>

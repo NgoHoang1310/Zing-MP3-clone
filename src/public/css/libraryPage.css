@@ -18,7 +18,7 @@
     text-decoration: none;
 }
 
-.library-nav .nav-item .nav-link.active{
+.library-nav .nav-item .nav-link.activeTopBar{
     border-bottom: solid 2px var(--boder-color-active);
 }
 

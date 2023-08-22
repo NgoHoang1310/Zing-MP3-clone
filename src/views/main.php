@@ -1,10 +1,3 @@
-<?php
-ob_start();
-session_start();
-include_once('../model/connectDB.php');
-include_once('../model/queryComand.php');
-?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,17 +33,17 @@ include_once('../model/queryComand.php');
 
                 <div class="sideBar-primary ">
                     <ul class="sideBar-primary__list">
-                        <li class="sideBar-primary__item sideBar-active">
+                        <a href="../views/main.php?page_layout=discoverPage" id="discoverTab" class="sideBar-primary__item sideBar-active text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-compact-disc"></i></span>
-                                <span class="flex-fill sideBar-primary__item--text ms-3"><a href="../views/main.php?page_layout=discoverPage">Khám Phá</a></span>
+                                <span class="flex-fill sideBar-primary__item--text ms-3">Khám Phá</span>
                                 <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
                             </div>
 
-                        </li>
+                        </a>
 
 
-                        <li class="sideBar-primary__item">
+                        <li id="chartTab" class="sideBar-primary__item">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-chart-simple"></i></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">#zingChart</span>
@@ -58,13 +51,13 @@ include_once('../model/queryComand.php');
                             </div>
                         </li>
 
-                        <li class="sideBar-primary__item ">
+                        <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage"  class="sideBar-primary__item text-white text-decoration-none ">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-bars"></i></i></span>
-                                <span class="flex-fill sideBar-primary__item--text ms-3"><a href="../views/main.php?page_layout=librarySongPage">Thư viện</a></span>
+                                <span class="flex-fill sideBar-primary__item--text ms-3">Thư viện</span>
                                 <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
                             </div>
-                        </li>
+                        </a>
 
                         <li class="sideBar-primary__item separate">
                             <div class="w-75 d-flex mx-auto">
@@ -76,34 +69,34 @@ include_once('../model/queryComand.php');
 
                 <div class="sideBar-feature">
                     <ul class="sideBar-primary__list">
-                        <li class="sideBar-primary__item ">
+                        <a href="../views/main.php?page_layout=currentListenPage" id="listenedTab" class="sideBar-primary__item text-white text-decoration-none ">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-clock-rotate-left"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Nghe gần đây</span>
                             </div>
 
-                        </li>
+                        </a>
 
-                        <li class="sideBar-primary__item">
+                        <a href="../views/main.php?page_layout=favouriteSongPage"  id="favouriteTab" class="sideBar-primary__item text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-heart"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Bài hát yêu thích</span>
                             </div>
-                        </li>
+                        </a>
 
-                        <li class="sideBar-primary__item">
+                        <a href="../views/main.php?page_layout=playlistPage"  id="playlistTab" class="sideBar-primary__item text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-bars"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Playlist</span>
                             </div>
-                        </li>
+                        </a>
 
-                        <li class="sideBar-primary__item">
+                        <a href="../views/main.php?page_layout=albumPage"  id="albumTab" class="sideBar-primary__item text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-layer-group"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Album</span>
                             </div>
-                        </li>
+                        </a>
                     </ul>
                 </div>
 
@@ -196,24 +189,44 @@ include_once('../model/queryComand.php');
             <!-- header -->
 
             <!-- Content -->
-            <div class="row container-content">
-
+            <div id="main" class="container-content">
                 <?php
-                switch ($_GET['page_layout']) {
-                    case 'discoverPage':
+                switch($_GET['page_layout']) {
+                    case 'discoverPage': {
                         include_once('../views/discoverPage.php');
                         break;
-                    case 'discoverPageAll':
+                    }
+                    case 'discoverPageAll': {
                         include_once('../views/discoverPageAll.php');
                         break;
-                    case 'librarySongPage':
+                    }
+                    case 'librarySongPage': {
                         include_once('../views/librarySongPage.php');
                         break;
-                    case 'libraryAlbumPage':
-                        include_once('../views/libraryAlbumPage.php');
+                    }
+                    case 'currentListenPage': {
+                        include_once('../views/currentListenPage.php');
+                        break;
+                    }
+                    case 'favouriteSongPage': {
+                        include_once('../views/favouriteSongPage.php');
+                        break;
+                    }
+                    case 'playlistPage': {
+                        include_once('../views/playlistPage.php');
+                        break;
+                    }
+                    case 'albumPage': {
+                        include_once('../views/albumPage.php');
+                        break;
+                    }
+
+                    default: 
+                        include_once('../views/discoverPage.php');
                         break;
                 }
-                ?>
+                 ?>
+
 
             </div>
             <!-- Content -->
@@ -259,7 +272,7 @@ include_once('../model/queryComand.php');
                     </div>
                     <input type="range" value="0" step="1" min="0" max="100" class="player-control__range">
 
-                    <audio src="<?php echo $row['file_path']; ?>" class="audioSrc"></audio>
+                    <audio src="" class="audioSrc"></audio>
                 </div>
             </div>
             <div class="col-4 d-flex justify-content-end align-items-center">
@@ -276,10 +289,14 @@ include_once('../model/queryComand.php');
     </div>
 </body>
 
-<script type="text/javascript" src="../public/js/slider.js"></script>
-<script type="text/javascript" src="../public/js/SwitchTab.js"></script>
-<script type="text/javascript" src="../public/js/handlePlayMusic.js"></script>
 <script type="text/javascript" src="../routes/web.js"></script>
+<script type="text/javascript" src="../public/js/SwitchTab.js"></script>
+<script type="text/javascript" src="../public/js/slider.js"></script>
+<script type="text/javascript" src="../public/js/handlePlayMusic.js"></script>
+<script type="text/javascript" src="../public/js/handleLibraryTab.js"></script>
+
+
+
 
 </html>
 <!-- footer -->

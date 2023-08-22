@@ -1,3 +1,7 @@
+.songActive{
+    background-color: #2f2739 !important;
+}
+
 .new-release-active{
     background-color: var(--boder-color-active) !important;
  
@@ -6,11 +10,12 @@
 .container-content{
    width: 100%;
    height: calc(100vh - 10vh);
-   overflow-y: scroll;
+   overflow-y: auto;
    overflow-x: hidden;
    margin-left: -8px;
    
 }
+
 
 .main-content{
     margin: 0 20px;
@@ -119,7 +124,8 @@
 }
 
 .new_release__song{
-    cursor: pointer;
+    padding: 4px;
+    border-radius: 10px;
 }
 
 .new_release__song:hover{
