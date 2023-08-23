@@ -32,7 +32,7 @@
             $result = $conn->query($sql);
 
             while ($row = $result->fetch_assoc()) { ?>
-                <div id="<?php echo $row['song_id'] ?>" class=" col-4 new_release__song d-flex text-white justify-content-around align-items-center mt-3" onclick="controllerMusic.clickOnSong(this.id)" >
+                <div id="<?php echo $row['song_id'] ?>" class=" col-4 new_release__song d-flex text-white justify-content-around align-items-center mt-3" onclick="controllerMusic.clickOnSong(this.id,this)" >
                     <img src="<?php echo $row['image'] ?>" alt="" class="song__image ms-5">
                     <div class="song__name flex-fill ms-5">
                         <h3><?php echo $row['title'] ?></h3>
