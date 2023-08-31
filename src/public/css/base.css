@@ -1,68 +1,86 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: inherit;
 }
 
-html{
+html {
     font-size: 62.5%;
     line-height: 1.6rem;
-   font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
- 
-}
-body{
-    overflow: hidden;
-}
-:root{
-    --primary-color:#170f23;
-    --white-color:#fff;
-    --black-color:#000;
-    --blur-black:#333;
-    --boder-color:#2b2533;
-    --boder-color-active:#9b4de0;
-    --primary-dropdown:#34224f;
-    --text-blur:#827e87;
+
 }
 
-.min-width{
+body {
+    overflow: hidden;
+}
+
+:root {
+    --primary-color: #170f23;
+    --white-color: #fff;
+    --black-color: #000;
+    --blur-black: #333;
+    --boder-color: #2b2533;
+    --boder-color-active: #9b4de0;
+    --primary-dropdown: #34224f;
+    --text-blur: #827e87;
+}
+
+.min-width {
     min-width: 900px;
 }
 
-.row.container-app{
+.row.container-app {
     background-color: var(--primary-color);
 }
 
-.ms-8{
+.ms-8 {
     margin-left: -8px !important;
 }
 
-.me-8{
-   margin-right: -8px;
+.me-8 {
+    margin-right: -8px;
 }
 
-.pe-0{
+.pe-0 {
     padding-right: 0px !important;
 }
 
-.ps-8{
+.ps-8 {
     padding-left: 8px !important;
 }
 
-.p-0{
+.p-0 {
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
 
-.m-0{
+.m-0 {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
 
-.p-8{
+.p-8 {
     padding: 0 8px;
 }
-.p-16{
+
+.p-16 {
     padding: 0 16px !important;
 }
 
+.toast-container {
+    right: 0;
+    top: 0;
+}
+
+#liveToast,
+.toast-header {
+    color: var(--white-color);
+    font-weight: 400;
+    font-size: 14px;
+}
+
+#liveToast img {
+    width: 20px;
+}

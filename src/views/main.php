@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,23 +16,25 @@
     <link rel="stylesheet" href="../public/css/footer.css">
     <link rel="stylesheet" href="../public/css/header.css">
     <link rel="stylesheet" href="../public/css/leftSideBar.css">
+    <link rel="stylesheet" href="../public/css/playlistPage.css">
     <link rel="stylesheet" href="../public/font/css/all.css">
-    <link rel="stylesheet" href="/src/public/img/không cần phải hứa đâu em.jpg">
-    <link rel="stylesheet" href="/src/public/audio/KhongCanPhaiHuaDauEm-KhaiDang-7129808.mp3">
+    <link rel="stylesheet" href="../public/img/Anh chưa thương em đến vậy đâu.jpg">
+    <link rel="stylesheet" href="../public/audio/KhongCanPhaiHuaDauEm-KhaiDang-7129808.mp3">
 </head>
 
 <body>
     <div class="row min-width position-relative container-app ">
         <div class="col-2 pe-0 ">
             <div class="left-sideBar">
+               
                 <div class="app-logo d-flex align-items-center justify-content-center">
                     <img style="width: 50px; height: 50px; border-radius: 50%;" src="https://cdn-icons-png.flaticon.com/512/9973/9973495.png" alt="">
-                    <a class="logo-link w-75 ms-1" href="">Music Player</a>
+                    <a class="logo-link w-75 ms-1" href="main.php?page_layout=discoverPage">Music Player</a>
                 </div>
 
                 <div class="sideBar-primary ">
                     <ul class="sideBar-primary__list">
-                        <a href="../views/main.php?page_layout=discoverPage" id="discoverTab" class="sideBar-primary__item sideBar-active text-white text-decoration-none">
+                        <a id="discoverTab" href="../views/main.php?page_layout=discoverPage" class="sideBar-primary__item sideBar-active text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-compact-disc"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Khám Phá</span>
@@ -43,7 +44,7 @@
                         </a>
 
 
-                        <li id="chartTab" class="sideBar-primary__item">
+                        <li id="chartTab" class="sideBar-primary__item  ">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-chart-simple"></i></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">#zingChart</span>
@@ -51,7 +52,7 @@
                             </div>
                         </li>
 
-                        <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage"  class="sideBar-primary__item text-white text-decoration-none ">
+                        <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage" class="sideBar-primary__item  text-white text-decoration-none ">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-bars"></i></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Thư viện</span>
@@ -69,7 +70,7 @@
 
                 <div class="sideBar-feature">
                     <ul class="sideBar-primary__list">
-                        <a href="../views/main.php?page_layout=currentListenPage" id="listenedTab" class="sideBar-primary__item text-white text-decoration-none ">
+                        <a href="../views/main.php?page_layout=currentListenPage" id="listenedTab" class="sideBar-primary__item  text-white text-decoration-none ">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-clock-rotate-left"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Nghe gần đây</span>
@@ -77,21 +78,21 @@
 
                         </a>
 
-                        <a href="../views/main.php?page_layout=favouriteSongPage"  id="favouriteTab" class="sideBar-primary__item text-white text-decoration-none">
+                        <a href="../views/main.php?page_layout=favouriteSongPage" id="favouriteTab" class="sideBar-primary__item  text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-heart"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Bài hát yêu thích</span>
                             </div>
                         </a>
 
-                        <a href="../views/main.php?page_layout=playlistPage"  id="playlistTab" class="sideBar-primary__item text-white text-decoration-none">
+                        <a href="../views/main.php?page_layout=playlistPage" id="playlistTab" class="sideBar-primary__item  text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-bars"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Playlist</span>
                             </div>
                         </a>
 
-                        <a href="../views/main.php?page_layout=albumPage"  id="albumTab" class="sideBar-primary__item text-white text-decoration-none">
+                        <a href="../views/main.php?page_layout=albumPage" id="albumTab" class="sideBar-primary__item  text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-layer-group"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Album</span>
@@ -103,9 +104,10 @@
                 <div class="sideBar-addPlayList">
                     <div class="w-75 d-flex mx-auto">
                         <span><i class="fa-solid fa-plus"></i></span>
-                        <span class="flex-fill sideBar-addPlayList__text ms-3">Tạo PlayList mới</span>
+                        <span class="flex-fill sideBar-addPlayList__text ms-3" data-bs-toggle="modal" data-bs-target="#confirmAddPlaylist">Tạo PlayList mới</span>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -164,10 +166,10 @@
 
                     <div class="btn-group">
                         <div class="nav-header__personal--account" data-bs-toggle="dropdown">
-                            <img src="https://scontent-hkt1-1.xx.fbcdn.net/v/t39.30808-1/241370012_990898578360523_2877865728324212326_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=110&ccb=1-7&_nc_sid=2b6aad&_nc_ohc=WHdujoSL1IcAX86skm2&_nc_ht=scontent-hkt1-1.xx&oh=00_AfDEnOOOjCeChTyaRnzVEuV3SOFtxOTTmTH-L-LxmBQTCg&oe=64DDA046" alt="" class="personal-account__image">
+                            <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="personal-account__image">
                             <ul class="dropdown-menu dropdown-menu__account">
                                 <li class="dropdown-item dropdown-menu__account--item d-flex align-items-center">
-                                    <img src="https://scontent-hkt1-1.xx.fbcdn.net/v/t39.30808-1/241370012_990898578360523_2877865728324212326_n.jpg?stp=cp0_dst-jpg_p60x60&_nc_cat=110&ccb=1-7&_nc_sid=2b6aad&_nc_ohc=WHdujoSL1IcAX86skm2&_nc_ht=scontent-hkt1-1.xx&oh=00_AfDEnOOOjCeChTyaRnzVEuV3SOFtxOTTmTH-L-LxmBQTCg&oe=64DDA046" alt="" class="dropdown-menu__account--image w-25 rounded-circle">
+                                    <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="dropdown-menu__account--image w-25 rounded-circle">
                                     <div class="dropdown-menu__account--info text-white ms-3">
                                         <h1 class="account-info__name w-100">Ngô Tuấn Hoàng</h1>
                                         <span class="account-info__type fs-2">Basic</span>
@@ -191,60 +193,101 @@
             <!-- Content -->
             <div id="main" class="container-content">
                 <?php
-                switch($_GET['page_layout']) {
+                switch ($_GET['page_layout']) {
                     case 'discoverPage': {
-                        include_once('../views/discoverPage.php');
-                        break;
-                    }
+                            include_once('../views/discoverPage.php');
+                            break;
+                        }
                     case 'discoverPageAll': {
-                        include_once('../views/discoverPageAll.php');
-                        break;
-                    }
+                            include_once('../views/discoverPageAll.php');
+                            break;
+                        }
                     case 'librarySongPage': {
-                        include_once('../views/librarySongPage.php');
-                        break;
-                    }
+                            include_once('../views/librarySongPage.php');
+                            break;
+                        }
                     case 'currentListenPage': {
-                        include_once('../views/currentListenPage.php');
-                        break;
-                    }
+                            include_once('../views/currentListenPage.php');
+                            break;
+                        }
                     case 'favouriteSongPage': {
-                        include_once('../views/favouriteSongPage.php');
-                        break;
-                    }
+                            include_once('../views/favouriteSongPage.php');
+                            break;
+                        }
                     case 'playlistPage': {
-                        include_once('../views/playlistPage.php');
-                        break;
-                    }
+                            include_once('../views/playlistPage.php');
+                            break;
+                        }
+                    case 'playlistDetail': {
+                            include_once('../views/playlistDetail.php');
+                            break;
+                        }
                     case 'albumPage': {
-                        include_once('../views/albumPage.php');
-                        break;
-                    }
+                            include_once('../views/albumPage.php');
+                            break;
+                        }
 
-                    default: 
+                    default:
                         include_once('../views/discoverPage.php');
                         break;
                 }
-                 ?>
+                ?>
 
 
             </div>
             <!-- Content -->
+            <!-- modal thêm playlist -->
+            <div class="modal addPlaylist fade" id="confirmAddPlaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content text-white">
+                        <div class="modal-header border-bottom-0 ">
+                            <h1 class="modal-title fs-2" id="staticBackdropLabel">Tạo Playlist</h1>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+                        <div class="modal-body ">
+                            <input type="text" name="playlistTitle" class="playlist-title__input" required name="playlistTitle" placeholder="Nhập tên playlist" oninput="handleInput(this,'confirmAddPlaylist')">
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-secondary fs-3" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" onclick="addPlaylist()" disabled>Tạo mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- modal xác nhận đổi tên playlist -->
+          <div class="modal addPlaylist fade" id="confirmRenamePlaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content text-white">
+                        <div class="modal-header border-bottom-0 ">
+                            <h1 class="modal-title fs-2" id="staticBackdropLabel">Đổi tên Playlist</h1>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+                        <div class="modal-body ">
+                            <input type="text" name="playlistTitle" class="playlist-title__input" required name="playlistTitle" placeholder="Nhập tên playlist" oninput="handleInput(this,'confirmRenamePlaylist')">
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-secondary fs-3" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" disabled onclick="renamePlaylist()" >Đổi tên</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
         <footer class="d-flex player-music-center pt-3 pb-3">
             <div id="music-media" class=" col-4 d-flex text-white justify-content-around align-items-center">
-                <!-- <img src="" alt="" class="music-control__image ms-5">
-          <div class="music-control__name flex-fill ms-5" >
-            <h3></h3>
-            <span>
-                <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href="">,</a>
-                <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""></a>
-            </span>
-          </div>          <div class="music-control__interact fs-4">
-          <i class="fa-solid fa-heart me-3"></i>
-          <i class="fas fa-ellipsis-h"></i>
-          </div> -->
+                <img src="..." alt="..." class="music-control__image ms-5">
+                <div class="music-control__name flex-fill ms-5">
+                    <h3></h3>
+                    <span>
+                        <a class="music-control__name--artist" style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href="">,</a>
+                        <a class="music-control__name--album" style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""></a>
+                    </span>
+                </div>
+                <div class="music-control__interact fs-4">
+                    <i class="loveSong fa-solid fa-heart me-3"></i>
+                </div>
             </div>
 
             <div class="col-4 pe-5 ps-5">
@@ -288,15 +331,15 @@
 
     </div>
 </body>
-
 <script type="text/javascript" src="../routes/web.js"></script>
-<script type="text/javascript" src="../public/js/SwitchTab.js"></script>
 <script type="text/javascript" src="../public/js/slider.js"></script>
+<script type="text/javascript" src="../public/js/SwitchTab.js"></script>
 <script type="text/javascript" src="../public/js/handlePlayMusic.js"></script>
 <script type="text/javascript" src="../public/js/handleLibraryTab.js"></script>
-
-
-
-
+<script type="text/javascript" src="../public/js/addSong.js"></script>
+<script type="text/javascript" src="../public/js/removeSong.js"></script>
+<script type="text/javascript" src="../public/js/addPlaylist.js"></script>
+<script type="text/javascript" src="../public/js/removePlaylist.js"></script>
+<script type="text/javascript" src="../public/js/renamePlaylist.js"></script>
 </html>
 <!-- footer -->

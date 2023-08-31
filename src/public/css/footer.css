@@ -8,7 +8,10 @@
 .active {
     color: #a260c6 !important;
 }
+.loveSongActive{
+    color: #a260c6 !important;
 
+}
 .btn-hover {
     border-radius: 50%;
     transition: all linear 0.2s;
@@ -20,6 +23,9 @@
     opacity: 0.8;
 }
 
+
+
+/*  */
 .player-music-center{
     height: calc(100vh - 90vh);
     background-color: #130c1c;
@@ -72,7 +78,6 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    
     background-color: white;
 }
 
@@ -81,6 +86,7 @@
     height: 3px;
     background-color: #ccc;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .input-range__volume::-webkit-slider-thumb{
@@ -89,4 +95,7 @@
     height: 12px;
     border-radius: 50%;
     background-color: white;
+}
+#music-media .loveSong{
+    cursor: pointer;
 }

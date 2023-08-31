@@ -28,3 +28,13 @@ setInterval(function() {
         let slide=document.querySelector(".slide_show");
         slide.appendChild(imgs[0])
 },3000);
+
+function toast() {
+    // const toastTrigger = document.getElementByIdr('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast');
+    console.log(toastLiveExample);
+    // console.log(toastTrigger);
+    
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+      toastBootstrap.show();
+}

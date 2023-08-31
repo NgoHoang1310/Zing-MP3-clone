@@ -147,27 +147,29 @@
     visibility: hidden;
 }
 
-.song-item{
+.song-menu .btn{
+    background-color: transparent;
+    border: none;
+    padding-right: 50%;
 
 }
 
 .song-menu{
     width: 280px;
-    background-color: var(--boder-color-active);
+    background-color: #34224f;
     border-radius: 10px;
 }
 
 .song-menu .dropdown-item{
     padding: 8px 4px;
+    background-color: #34224f;
+    font-size: 14px;
+    color: white;
 }
 
 .song-menu .dropdown-item:hover{
-    background-color: transparent;
-    opacity: 0.8;
+    background-color: #3a3344;
 }
 
 /* discoverPageAll */
 
-.library-listSong{
-
-}

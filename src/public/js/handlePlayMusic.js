@@ -1,8 +1,19 @@
 let song;
-
 //call api từ file querySongs.php
+let api;
+switch ($('.main-content').id) {
+    case 'discoverPage':
+        api = '../model/apiSongAll.php';
+        break;
+    case 'libraryPage':
+        api = '../model/apiLibrary.php';
+        break;
+    default:
+        api = '../model/apiSongAll.php';
+        break;
+}
 const getDataSong = async (callback) => {
-    await fetch('../model/querySongs.php')
+    await fetch(api)
         .then(function (response) {
             return response.json();
         })
@@ -15,8 +26,10 @@ const getDataSong = async (callback) => {
 const PLAYER_STORAGE_KEY = 'music-player';
 let getMusicListDiscover = $('.row.new_release__list');
 let getMusicListAll = $('.row.new_release__list');
-let getMusicName = $('.player-music-name');
-let getCdThumb = $('#music-media');
+let getMusicName = $('.music-control__name h3');
+let getCdThumb = $('.music-control__image');
+let getSongArtist = $('.music-control__name--artist');
+let getSongAlbum = $('.music-control__name--album');
 let getAudio = $('.audioSrc');
 let getPlayBtn = $('.player-control__function.play');
 let getPauseBtn = $('.player-control__function.pause');
@@ -26,12 +39,12 @@ let getNextBtn = $('.player-control__function.next');
 let getPreviousBtn = $('.player-control__function.previous');
 let getRandomBtn = $('.player-control__function.random');
 let getReplayBtn = $('.player-control__function.replay')
+let getLoveSongIcon = $('#music-media .loveSong');
 let songDefaultIndex = 0;
 let isRandom = false;
 let isReplay = false;
 let isDownLoad = false;
 let isMute = false;
-
 // tạo một đối tượng chứa các phương thức xử lí trình chơi nhạc
 const controllerMusic = {
     // xử lí phần chơi nhạc footer
@@ -46,21 +59,10 @@ const controllerMusic = {
                 },
                 //hàm render ra bài hát phần footer
                 renderSongPlayer: function () {
-                    getCdThumb.innerHTML = `
-                   <img src="${song[songDefaultIndex].image}" alt="" class="music-control__image ms-5">
-                   <div class="music-control__name flex-fill ms-5" >
-                     <h3>${song[songDefaultIndex].title}</h3>
-                     <span>
-                         <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href="">${song[songDefaultIndex].artist},</a>
-                         <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href="">${song[songDefaultIndex].album}</a>
-                     </span>
-                   </div>
-                             <div class="music-control__interact fs-4">
-                   <i class="fa-solid fa-heart me-3"></i>
-                   <i class="fas fa-ellipsis-h"></i>
-                   </div>
-           
-                   `
+                    getMusicName.innerText = song[songDefaultIndex].title;
+                    getCdThumb.setAttribute('src', `${song[songDefaultIndex].image}`);
+                    getSongArtist.innerText = song[songDefaultIndex].artist + ', ';
+                    getSongAlbum.innerText = song[songDefaultIndex].album;
                     getAudio.src = song[songDefaultIndex].file_path;
                 },
 
@@ -123,12 +125,12 @@ const controllerMusic = {
                 },
                 //hàm tự động active song khi nhấn prev hoặc next
                 autoActiveSong: function () {
-                    let getNewReleaseSong = $$('.col-4.new_release__song');
+                    let getNewReleaseSong = $$('.new_release__song');
                     if (songDefaultIndex < getNewReleaseSong.length) {
                         getNewReleaseSong.forEach((song) => {
                             if ((parseInt(song.id) - 1 == parseInt(songDefaultIndex))) {
-                                if ($('.col-4.new_release__song.songActive')) {
-                                    $('.col-4.new_release__song.songActive').classList.remove('songActive');
+                                if ($('.new_release__song.songActive')) {
+                                    $('.new_release__song.songActive').classList.remove('songActive');
                                     song.classList.add('songActive');
                                 } else {
                                     song.classList.add('songActive');
@@ -143,6 +145,22 @@ const controllerMusic = {
                     }
 
 
+                },
+                //thêm bài hát vào nghe gần đây
+                currentSongListen: function () {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + songDefaultIndex);
+                        }
+                    };
+                    xhttp.open("POST", "../controllers/addToDB.php?currentID=" + songDefaultIndex, true);
+                    xhttp.send();
+
+                },
+                //thêm bài hát vào bài hát yêu thích
+                loveSong: function () {
+                    getLoveSongIcon.classList.toggle('loveSongActive');
                 },
                 //hàm xử lí các sự kiện
                 handleEvents: function () {
@@ -186,6 +204,7 @@ const controllerMusic = {
                         getInputRange.onchange = function () {
                             getAudio.currentTime = this.value;
                         }
+                        app.currentSongListen();
                     }
                     //xử lí khi bài hát đang dừng
                     getAudio.onpause = function () {
@@ -214,6 +233,10 @@ const controllerMusic = {
                         }
                         app.setConfig('isReplay', isReplay);
                     }
+
+                    getLoveSongIcon.onclick = function () {
+                        app.loveSong();
+                    }
                 },
                 //hàm khởi chạy tất cả các phương thức của trình phát nhạc
                 run: function () {
@@ -234,9 +257,8 @@ const controllerMusic = {
     },
     //hàm xử lí khi nhấn trực tiếp vào bài hát
     clickOnSong: function (id, songActive) {
-
-        if ($('.col-4.new_release__song.songActive')) {
-            $('.col-4.new_release__song.songActive').classList.remove('songActive');
+        if ($('.new_release__song.songActive')) {
+            $('.new_release__song.songActive').classList.remove('songActive');
             songActive.classList.add('songActive');
 
         } else {
@@ -245,25 +267,14 @@ const controllerMusic = {
         getDataSong(function (data) {
             let song = data;
             songDefaultIndex = id - 1;
-            getCdThumb.innerHTML = `
-                <img src="${song[songDefaultIndex].image}" alt="" class="music-control__image ms-5">
-                <div class="music-control__name flex-fill ms-5" >
-                  <h3>${song[songDefaultIndex].title}</h3>
-                  <span>
-                      <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href="">${song[songDefaultIndex].artist},</a>
-                      <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href="">${song[songDefaultIndex].album}</a>
-                  </span>
-                </div>
-                          <div class="music-control__interact fs-4">
-                <i class="fa-solid fa-heart me-3"></i>
-                <i class="fas fa-ellipsis-h"></i>
-                </div>
-        
-                `
+            getMusicName.innerText = song[songDefaultIndex].title;
+            getCdThumb.setAttribute('src', `${song[songDefaultIndex].image}`);
+            getSongArtist.innerText = song[songDefaultIndex].artist + ', ';
+            getSongAlbum.innerText = song[songDefaultIndex].album;
             getAudio.src = song[songDefaultIndex].file_path;
             getAudio.play();
         })
-        console.log(id)
+        console.log(songDefaultIndex);
     },
 
 

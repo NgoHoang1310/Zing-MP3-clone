@@ -4,7 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 
 const postURL = (e, target) => {
     e.preventDefault();
-    window.history.pushState({}, "", target.href);
+    window.history.pushState({}, "", target.href||target);
 }
 
 const handleSwitch = () => {
@@ -34,15 +34,30 @@ const handleSwitch = () => {
                     navigateToPage('albumPage.php', ".container-content");
                     break;
                 default:
-                    navigateToPage('discoverPage.php    ', ".container-content");
+                    navigateToPage('discoverPage.php', ".container-content");
                     break;
             }
 
         }
     })
 
+
 }
 handleSwitch();
+
+const navigateToAll = (e,target) => {
+    postURL(e,target);
+    navigateToPage('discoverPageAll.php','.container-content');
+}
+
+const navigateToPlaylistDetail = (e,target,element) =>{
+    postURL(e,target);
+    let getPlaylistId = element.closest('.playlist-list').id;
+    setTimeout(function() {
+        navigateToPage('playlistDetail.php?playlistId=' +getPlaylistId, '.container-content');
+    },1000)
+    console.log(getPlaylistId);
+}
 
 
 

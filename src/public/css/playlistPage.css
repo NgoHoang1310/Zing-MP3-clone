@@ -1,0 +1,112 @@
+
+.playlist-create-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 270px;
+    border: solid 1px var(--boder-color);
+    color: white;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.playlist-create-icon {
+    padding: 8px 14px;
+    border: solid 2px white;
+    border-radius: 50%;
+}
+
+.playlist-create-item:hover .playlist-create-icon,
+.playlist-create-item:hover .playlist-create-text {
+    color: var(--boder-color-active);
+    border-color: var(--boder-color-active);
+}
+
+.playlist-list__item {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+}
+
+.playlist-list__item:hover .playlist-image img {
+    opacity: 0.7;
+    scale: 1;
+}
+
+
+.playlist-image img {
+    width: 100%;
+    border-radius: 5px;
+    scale: 0.9;
+    transition: all ease-in-out 0.3s;
+}
+
+.playlist-image:hover .playlist-control {
+    display: flex;
+}
+
+.playlist-control {
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    justify-content: space-evenly;
+    font-size: 15px;
+    display: none;
+}
+
+.playlist-user {
+    margin-top: 4px;
+    color: #827e87;
+}
+
+.playlist-control__delete i,
+.playlist-control__play i,
+.playlist-control__rename i {
+    padding: 12px 16px;
+    border: solid 2px white;
+    border-radius: 50%;
+}
+
+/* modal thêm playlist */
+
+.modal.addPlaylist {}
+
+.modal-dialog {
+    top: 30%;
+    
+}
+
+.modal-content {
+    border-radius: 10px;
+    background-color: #34224f;
+}
+
+.playlist-title__input {
+    height: 42px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    outline: none;
+    padding: 0 8px;
+    background-color: hsla(0, 0%, 100%, 0.1);
+    border: none;
+    color: white;
+}
+
+
+
+.modal-footer .btn-primary {
+    background-color: var(--boder-color-active);
+    border: none;
+}
