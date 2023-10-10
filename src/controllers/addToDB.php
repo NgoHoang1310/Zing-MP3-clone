@@ -143,6 +143,37 @@ class Insert
         echo "Helo";
     
     }
+
+    public function addToFavourite() {
+        try {
+            global $conn;
+            if ($id = $_REQUEST['favouriteAddSongId']) {
+                $sql = "INSERT INTO favouritesong (song_id) VALUES ('$id')";
+                //Kiểm tra tồn tại ID
+                $checkExistId = "SELECT COUNT(song_id) AS count FROM favouritesong WHERE song_id = $id";
+                $resultCheck = $conn->query($checkExistId);
+                if ($resultCheck->fetch_assoc()['count'] == 0) {
+                    // Thực thi câu truy vấn
+                    if ($conn->query($sql) === TRUE) {
+                        echo "Chèn dữ liệu thành công.";
+                    } else {
+                        echo "Lỗi: " . $sql . "<br>" . $conn->error;
+                    }
+                } else {
+                    echo "ID đã tồn tại";
+                }
+            } else {
+                echo "Không nhận được id";
+            }
+
+
+
+            // Đóng kết nối
+            // $conn->close();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }
 //khởi tạo đối tượng
 
@@ -153,4 +184,5 @@ $manageSong->addToCurrentListen();
 $manageSong->addPlaylist();
 $manageSong->addToPlaylist();
 $manageSong->renamePlaylist();
+$manageSong->addToFavourite();
 

@@ -1,6 +1,6 @@
 <?php
    include_once('../model/connectDB.php');
-   $sql = "SELECT * FROM Songs";
+   $sql = "SELECT * FROM Songs JOIN favouritesong ON Songs.song_id = favouritesong.song_id";
    $result = $conn->query($sql);
    $i = 0;
    
@@ -10,7 +10,6 @@
        $i++;
    }
    header('Content-Type: application/json');
-   
-    $myjson = json_encode($row);
+   array_pop($row);
+   $myjson = json_encode($row);
    echo $myjson;
-?>

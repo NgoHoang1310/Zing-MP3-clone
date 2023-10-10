@@ -34,7 +34,7 @@
             <a href="../views/main.php?page_layout=discoverPage" class="library-empty__discover fs-2 text-white text-decoration-none" onclick="goToDiscover(event,this.getAttribute('href'))">Khám phá ngay</a>
         </div>
         <?php } else {
-        while (($row = $result->fetch_assoc())) {
+        while ($row = $result->fetch_assoc()) {
         ?>
 
             <div id="<?php echo $row['song_id'] ?>" class=" col-12 new_release__song d-flex text-white justify-content-around align-items-center mt-3" onclick="controllerMusic.clickOnSong(this.id,this)">
@@ -53,8 +53,8 @@
                         </button>
                         <ul class="dropdown-menu song-menu">
                             <li class="dropdown-item> " onclick="removeFromLib(this,event),toast()">
-                            <button type="button" class="btn liveToastBtn fs-4 text-white ">Xóa khỏi thư viện</button>
-                        </li>
+                                <button type="button" class="btn liveToastBtn fs-4 text-white ">Xóa khỏi thư viện</button>
+                            </li>
                         </ul>
                     </div>
 

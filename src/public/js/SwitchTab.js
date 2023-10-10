@@ -4,7 +4,7 @@ const $$ = document.querySelectorAll.bind(document);
 
 const postURL = (e, target) => {
     e.preventDefault();
-    window.history.pushState({}, "", target.href||target);
+    window.history.pushState({}, "", target.href || target);
 }
 
 const handleSwitch = () => {
@@ -18,9 +18,13 @@ const handleSwitch = () => {
                 case 'discoverTab':
                     navigateToPage('discoverPage.php', ".container-content");
                     break;
+                case 'chartTab':
+                    navigateToPage('chartPage.php', ".container-content");
+                   setTimeout(chartLine,200);
+                    break;
                 case 'librarySongTab':
-                        navigateToPage('librarySongPage.php', ".container-content");
-                        break;
+                    navigateToPage('librarySongPage.php', ".container-content");
+                    break;
                 case 'listenedTab':
                     navigateToPage('currentListenPage.php', ".container-content");
                     break;
@@ -29,9 +33,6 @@ const handleSwitch = () => {
                     break;
                 case 'playlistTab':
                     navigateToPage('playlistPage.php', ".container-content");
-                    break;
-                case 'albumTab':
-                    navigateToPage('albumPage.php', ".container-content");
                     break;
                 default:
                     navigateToPage('discoverPage.php', ".container-content");
@@ -45,17 +46,17 @@ const handleSwitch = () => {
 }
 handleSwitch();
 
-const navigateToAll = (e,target) => {
-    postURL(e,target);
-    navigateToPage('discoverPageAll.php','.container-content');
+const navigateToAll = (e, target) => {
+    postURL(e, target);
+    navigateToPage('discoverPageAll.php', '.container-content');
 }
 
-const navigateToPlaylistDetail = (e,target,element) =>{
-    postURL(e,target);
+const navigateToPlaylistDetail = (e, target, element) => {
+    postURL(e, target);
     let getPlaylistId = element.closest('.playlist-list').id;
-    setTimeout(function() {
-        navigateToPage('playlistDetail.php?playlistId=' +getPlaylistId, '.container-content');
-    },1000)
+    setTimeout(function () {
+        navigateToPage('playlistDetail.php?playlistId=' + getPlaylistId, '.container-content');
+    }, 1000)
     console.log(getPlaylistId);
 }
 

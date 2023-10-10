@@ -43,7 +43,7 @@
 .library-empty__discover{
     margin-top: 24px;
     padding: 4px 16px;
-    background-color: var(--boder-color-active);
+    background-color: var(--btn--all-color);
     border-radius: 20px;
 
 }

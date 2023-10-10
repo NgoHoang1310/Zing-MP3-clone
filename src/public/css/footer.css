@@ -6,10 +6,10 @@
     display: block !important;
 }
 .active {
-    color: #a260c6 !important;
+    color: var(--heart-color) !important;
 }
 .loveSongActive{
-    color: #a260c6 !important;
+    color: var(--heart-color) !important;
 
 }
 .btn-hover {
@@ -19,7 +19,7 @@
 
 .btn-hover:hover {
    
-    border: solid 1px #a260c6 !important;
+    border: solid 1px var(--hover_text_foot) !important;
     opacity: 0.8;
 }
 
@@ -28,8 +28,8 @@
 /*  */
 .player-music-center{
     height: calc(100vh - 90vh);
-    background-color: #130c1c;
-    border-top: solid 2px var(--boder-color);
+    background-color: var(--primary-foot-color);
+    /* border-top: solid 2px var(--boder-color); */
 }
 
 .music-control__image{

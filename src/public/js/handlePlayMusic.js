@@ -22,6 +22,17 @@ const getDataSong = async (callback) => {
             console.log('Đã xảy ra lỗi: ' + error);
         });
 }
+
+const getDataFavourite = async (callback) => {
+    await fetch('../model/apiFavourite.php')
+    .then(function (response) {
+        return response.json();
+    })
+    .then(callback)
+    .catch(function (error) {
+        console.log('Đã xảy ra lỗi: ' + error);
+    });
+}
 //khai báo các biến cần sử dụng
 const PLAYER_STORAGE_KEY = 'music-player';
 let getMusicListDiscover = $('.row.new_release__list');
@@ -45,6 +56,8 @@ let isRandom = false;
 let isReplay = false;
 let isDownLoad = false;
 let isMute = false;
+let isLoveSong = false;
+isExistLoveSong = false;
 // tạo một đối tượng chứa các phương thức xử lí trình chơi nhạc
 const controllerMusic = {
     // xử lí phần chơi nhạc footer
@@ -82,6 +95,7 @@ const controllerMusic = {
                         }
                         this.renderSongPlayer();
                         app.autoActiveSong();
+                        app.renderFavouriteSong(songDefaultIndex+1);
 
                     }
 
@@ -98,7 +112,7 @@ const controllerMusic = {
                         }
                         this.renderSongPlayer();
                         app.autoActiveSong();
-
+                        app.renderFavouriteSong(songDefaultIndex+1);
                     }
                 },
                 //hàm play random
@@ -160,7 +174,43 @@ const controllerMusic = {
                 },
                 //thêm bài hát vào bài hát yêu thích
                 loveSong: function () {
-                    getLoveSongIcon.classList.toggle('loveSongActive');
+                   isLoveSong = !isLoveSong;
+                   getLoveSongIcon.classList.toggle('loveSongActive');  
+                   var xhttp = new XMLHttpRequest();
+                   xhttp.onreadystatechange = function () {
+                       if (this.readyState == 4 && this.status == 200) {
+                           console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + songDefaultIndex);
+                       }
+                   };
+                console.log(songDefaultIndex);
+                   if(isLoveSong) {
+                    xhttp.open("POST", "../controllers/addToDB.php?favouriteAddSongId=" + (songDefaultIndex + 1), true);
+                    xhttp.send();
+                   }else{
+                    xhttp.open("POST", "../controllers/removeFromDB.php?favouriteRemoveSongId=" + (songDefaultIndex + 1), true);
+                    xhttp.send();
+                   }
+      
+                },
+
+                //hàm render ra icon các bài hát có trong favourite song
+                renderFavouriteSong: function(songIndex) {
+                    getDataFavourite(function(songs) {
+                           for(let i = 0; i < songs.length;i++) {
+                                if(songs[i].song_id == songIndex) {
+                                    isExistLoveSong = true;
+                                    break;
+                                }else{
+                                    isExistLoveSong = false;
+                                }
+                           }
+                        if(isExistLoveSong) {
+                            getLoveSongIcon.classList.add('loveSongActive');  
+                        }else{
+                            getLoveSongIcon.classList.remove('loveSongActive');  
+                        }
+                       
+                    })
                 },
                 //hàm xử lí các sự kiện
                 handleEvents: function () {
@@ -246,6 +296,7 @@ const controllerMusic = {
                     // this.handleSrollTop();
                     this.handleEvents();
                     this.changeVolume();
+                    this.renderFavouriteSong(songDefaultIndex+1);
                     getRandomBtn.classList.toggle('active', isRandom);
                     getReplayBtn.classList.toggle('active', isReplay);
                 }
@@ -282,7 +333,6 @@ const controllerMusic = {
 }
 
 controllerMusic.getSongController();
-
 
 
 

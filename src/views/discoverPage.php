@@ -14,10 +14,10 @@
     <div class="new_release ">
         <h3>Mới Phát Hành</h3>
         <div class="new_release-nav d-flex justify-content-between mt-5">
-            <div class="new_release-nav-btn ">
-                <button class="new_release__btn new-release-active">TẤT CẢ</button>
-                <button class="new_release__btn">VIỆT NAM</button>
-                <button class="new_release__btn">QUỐC TẾ</button>
+            <div class="new_release-nav-btn">
+                <a href="../views/main.php?page_layout=discoverPage" id="ALL" class="new_release__btn new-release-active">TẤT CẢ</a>
+                <a href="../views/main.php?page_layout=discoverPage" id="VN" class="new_release__btn">VIỆT NAM</a>
+                <a href="../views/main.php?page_layout=discoverPage" id="US" class="new_release__btn">QUỐC TẾ</a>
             </div>
 
             <a class="new_release-nav-all fs-4 text-white d-block text-decoration-none me-5" href="../views/main.php?page_layout=discoverPageAll" onclick="navigateToAll(event, this.getAttribute('href'))">TẤT CẢ</a>
@@ -29,15 +29,13 @@
             include_once('../controllers/renderView.php');
             // render playlist phần thêm playlist
             $playlist = new querySQL();
-            
-            
             // <!-- render bài hát ra view -->
             $discover = new querySQL();
             $result = $discover->renderToDis();
             while ($row = $result->fetch_assoc()) {
                 $resultPlaylist = $playlist->renderPlaylist();
                 $num_rows_playlist = mysqli_num_rows($resultPlaylist);
-                ?>
+            ?>
 
                 <div id="<?php echo $row['song_id'] ?>" class=" col-4 new_release__song d-flex text-white justify-content-around align-items-center mt-3" onclick="controllerMusic.clickOnSong(this.id,this)">
                     <img src="<?php echo $row['image'] ?>" alt="" class="song__image ms-5">
@@ -56,19 +54,19 @@
                             </button>
                             <ul class="dropdown-menu song-menu">
                                 <li onclick="addToLib(this),toast()" class="dropdown-item ">
-                                    <button id="liveToastBtn"  type="button" class="btn fs-4 text-white ">Thêm vào thư viện</button>
+                                    <button id="liveToastBtn" type="button" class="btn fs-4 text-white ">Thêm vào thư viện</button>
                                 </li>
                                 <li class="dropdown-item dropend">
                                     <button type="button" class="btn btn-secondary fs-4 text-white" data-bs-toggle="dropdown" aria-expanded="false">
                                         Thêm vào Playlist
                                     </button>
-                                    <?php if($num_rows_playlist > 0) { ?>
-                                    <ul class="dropdown-menu song-menu ">
-                                        <?php while($rowPlaylist = $resultPlaylist->fetch_assoc()) {
+                                    <?php if ($num_rows_playlist > 0) { ?>
+                                        <ul class="dropdown-menu song-menu ">
+                                            <?php while ($rowPlaylist = $resultPlaylist->fetch_assoc()) {
                                             ?>
-                                        <li><button id="<?php echo $rowPlaylist['playlist_id'] ?>" class="dropdown-item " type="button" onclick="addToPlaylist(this)" ><?php echo $rowPlaylist['title']?></button></li>
-                                        <?php }?>
-                                    </ul>
+                                                <li><button id="<?php echo $rowPlaylist['playlist_id'] ?>" class="dropdown-item " type="button" onclick="addToPlaylist(this)"><?php echo $rowPlaylist['title'] ?></button></li>
+                                            <?php } ?>
+                                        </ul>
                                     <?php } ?>
                                 </li>
 

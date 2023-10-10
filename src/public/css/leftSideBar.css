@@ -1,7 +1,7 @@
 
 .sideBar-active{
     opacity: 1 !important;
-    background-color: #3a3344;
+    background-color: var(--link-nav-color)   ;
     width: 100%;
 }
 
@@ -17,7 +17,7 @@
         display: block;
         position: absolute;
         width: 4px;
-        background-color: #9b4de0;
+        background-color: var(--link-boder-color);
         height: 50px;
         left: 0px;
 }
@@ -25,7 +25,7 @@
 .left-sideBar{
     display: flex;
     flex-direction: column;
-    background-color: #231b2e;
+    background-color: var(--primary-nav-color);
     color: var(--white-color);
     font-size: 1.4rem;
     height: 90vh;

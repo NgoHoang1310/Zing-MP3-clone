@@ -17,7 +17,8 @@
     z-index: 1;
     right: 0;
     left: 16.5%;
-    background-color: rgba(23, 15, 35, 0.8);
+    background-color: var(--primary-nav-color);
+    /* opacity: 0.9; */
     backdrop-filter: blur(20px);
 }
 
@@ -84,7 +85,7 @@
 }
 
 .dropdown-menu__setting{
-    background-color: var(--primary-dropdown);
+    background-color: var(--modal-color);
     width: 24rem;
     height: 34rem;
     border-radius: 15px;
@@ -92,13 +93,14 @@
 }
 
 .dropdown-menu__setting--item{
-    color: #7c728c ;
+    color: white ;
     line-height: 50px;
 }
 
 .dropdown-menu__setting--item:hover{
-    background-color: #7c728c ;
-    color: var(--white-color) !important;
+    background-color: var(--link-nav-color) ;
+    border-radius: 15px;
+    color: white;
 }
 
 .dropdown-menu__setting--item span{
@@ -114,6 +116,7 @@
 }
 
 .personal-account__image{
+    display: inline-block;
     width: 100%;
     border-radius: 50%;
 }
@@ -121,7 +124,7 @@
 .dropdown-menu__account{
     width: 35rem;
     height: 15rem;
-    background-color: var(--primary-dropdown);
+    background-color: var(--modal-color);
     border-radius: 15px;
 }
 

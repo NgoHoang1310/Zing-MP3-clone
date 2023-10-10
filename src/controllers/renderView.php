@@ -1,6 +1,5 @@
 <?php
 include_once('../model/connectDB.php');
-
 class querySQL
 {
     public function renderToLib()
@@ -13,8 +12,20 @@ class querySQL
     public function renderToDis()
     {
         global $conn;
+        // if ($fillterId = $_REQUEST['fillterId']) {
+        //     if ($fillterId == 'VN') {
+        //         $sql = "SELECT * FROM songs WHERE country = '$fillterId' LIMIT 9";
+        //     } else if ($fillterId == 'US') {
+        //         $sql = "SELECT * FROM songs WHERE country = '$fillterId' LIMIT 9";
+        //     } else {
+        //         $sql = "SELECT * FROM songs LIMIT 9";
+        //     }
+        //     return $conn->query($sql);
+        // } else {
+        //     echo "Không nhận được fillterID";
+        // }
         $sql = "SELECT * FROM songs LIMIT 9";
-        return $conn->query($sql);
+        return $conn->query(($sql));
     }
 
     public function renderToDisAll()
@@ -65,5 +76,12 @@ class querySQL
         } catch (Exception $e) {
             echo "Lỗi" . $e->getMessage();
         }
+    }
+
+    public function renderToFavourite()
+    {
+        global $conn;
+        $sql = "SELECT * FROM Songs JOIN favouritesong ON Songs.song_id = favouritesong.song_id ORDER BY favourite_id DESC";
+        return $conn->query($sql);
     }
 }

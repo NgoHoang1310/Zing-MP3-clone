@@ -1,3 +1,9 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['data']['user'])) {
+        header('location: ./layouts/authLayouts/loginPage.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,24 +15,24 @@
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/9973/9973495.png">
-    <link rel="stylesheet" href="../public/css/base.css">
     <link rel="stylesheet" href="../public/css/discoverPage.css">
     <link rel="stylesheet" href="../public/css/libraryPage.css">
     <link rel="stylesheet" href="../public/css/footer.css">
     <link rel="stylesheet" href="../public/css/header.css">
     <link rel="stylesheet" href="../public/css/leftSideBar.css">
     <link rel="stylesheet" href="../public/css/playlistPage.css">
+    <link rel="stylesheet" href="../public/css/base.css">
     <link rel="stylesheet" href="../public/font/css/all.css">
-    <link rel="stylesheet" href="../public/img/Anh chưa thương em đến vậy đâu.jpg">
-    <link rel="stylesheet" href="../public/audio/KhongCanPhaiHuaDauEm-KhaiDang-7129808.mp3">
+
 </head>
 
 <body>
-    <div class="row min-width position-relative container-app ">
+    <div class="row min-width position-relative container-app">
         <div class="col-2 pe-0 ">
             <div class="left-sideBar">
-               
+
                 <div class="app-logo d-flex align-items-center justify-content-center">
                     <img style="width: 50px; height: 50px; border-radius: 50%;" src="https://cdn-icons-png.flaticon.com/512/9973/9973495.png" alt="">
                     <a class="logo-link w-75 ms-1" href="main.php?page_layout=discoverPage">Music Player</a>
@@ -44,27 +50,27 @@
                         </a>
 
 
-                        <li id="chartTab" class="sideBar-primary__item  ">
+                        <a id="chartTab" href="../views/main.php?page_layout=chartPage" class="sideBar-primary__item text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-chart-simple"></i></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">#zingChart</span>
                                 <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
                             </div>
-                        </li>
+                            </li>
 
-                        <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage" class="sideBar-primary__item  text-white text-decoration-none ">
-                            <div class="w-75 d-flex mx-auto">
-                                <span><i class="fa-solid fa-bars"></i></i></span>
-                                <span class="flex-fill sideBar-primary__item--text ms-3">Thư viện</span>
-                                <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
-                            </div>
-                        </a>
+                            <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage" class="sideBar-primary__item  text-white text-decoration-none ">
+                                <div class="w-75 d-flex mx-auto">
+                                    <span><i class="fa-solid fa-bars"></i></i></span>
+                                    <span class="flex-fill sideBar-primary__item--text ms-3">Thư viện</span>
+                                    <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
+                                </div>
+                            </a>
 
-                        <li class="sideBar-primary__item separate">
-                            <div class="w-75 d-flex mx-auto">
-                                <span class="sideBar-primary__separate"></span>
-                            </div>
-                        </li>
+                            <li class="sideBar-primary__item separate">
+                                <div class="w-75 d-flex mx-auto">
+                                    <span class="sideBar-primary__separate"></span>
+                                </div>
+                            </li>
                     </ul>
                 </div>
 
@@ -92,12 +98,12 @@
                             </div>
                         </a>
 
-                        <a href="../views/main.php?page_layout=albumPage" id="albumTab" class="sideBar-primary__item  text-white text-decoration-none">
+                        <!-- <a href="../views/main.php?page_layout=albumPage" id="albumTab" class="sideBar-primary__item  text-white text-decoration-none">
                             <div class="w-75 d-flex mx-auto">
                                 <span><i class="fa-solid fa-layer-group"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Album</span>
                             </div>
-                        </a>
+                        </a> -->
                     </ul>
                 </div>
 
@@ -116,14 +122,14 @@
         <div class="col-10 header_and_content">
             <header class="nav-header p-16">
                 <div class="nav-header__controllers">
-                    <div class="controllers-button me-3 p-8">
+                    <!-- <div class="controllers-button me-3 p-8">
                         <div class="cotrollers-button__prev fs-2">
                             <i class="fa-solid fa-arrow-left"></i>
                         </div>
                         <div class="cotrollers-button__next fs-2">
                             <i class="fa-solid fa-arrow-right"></i>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="controllers-search">
                         <input placeholder="Tìm kiếm nghệ sỹ, bài hát" type="text" class="controllers-search__input">
@@ -136,7 +142,7 @@
                             <i class="fa-solid fa-gear "></i>
                         </span>
                         <ul class="dropdown-menu dropdown-menu__setting">
-                            <li><a class="dropdown-item dropdown-menu__setting--item d-flex justify-content-around align-items-center fs-3" href="#">
+                            <li><a class="themeTab dropdown-item dropdown-menu__setting--item d-flex justify-content-around align-items-center fs-3" href="#">
                                     <i class="fa-solid fa-brush" style="color: white;"></i>
                                     <span style="color: white;">Giao diện</span>
                                     <i class="fa-solid fa-chevron-right" style="color: white"></i>
@@ -164,27 +170,46 @@
                         </ul>
                     </div>
 
-                    <div class="btn-group">
-                        <div class="nav-header__personal--account" data-bs-toggle="dropdown">
+                    <!-- <div class="dropdown">
+                        <div class="btn " data-bs-toggle="dropdown" aria-expanded="false">
                             <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="personal-account__image">
-                            <ul class="dropdown-menu dropdown-menu__account">
-                                <li class="dropdown-item dropdown-menu__account--item d-flex align-items-center">
-                                    <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="dropdown-menu__account--image w-25 rounded-circle">
-                                    <div class="dropdown-menu__account--info text-white ms-3">
-                                        <h1 class="account-info__name w-100">Ngô Tuấn Hoàng</h1>
-                                        <span class="account-info__type fs-2">Basic</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item dropdown-menu__account--item fs-3 text-white" href="#">
-                                        <i class="fa-solid fa-right-from-bracket"></i>
-                                        <span class="ms-3">Đăng xuất</span>
-                                    </a></li>
-                            </ul>
+                            </div>
+                        <ul class="dropdown-menu dropdown-menu__account">
+                            <li class="dropdown-item dropdown-menu__account--item d-flex align-items-center">
+                                <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="dropdown-menu__account--image w-25 rounded-circle">
+                                <div class="dropdown-menu__account--info text-white ms-3">
+                                    <h1 class="account-info__name w-100">Ngô Tuấn Hoàng</h1>
+                                    <span class="account-info__type fs-2">Basic</span>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item dropdown-menu__account--item fs-3 text-white" href="../admin/form_log/form/xulydangxuat.php">Đăng xuất</a></li>
+                        </ul>
+                    </div> -->
+                    <div class="btn-group">
+                        <div class="nav-header__personal--account dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="personal-account__image">
                         </div>
-
+                        <ul class="dropdown-menu dropdown-menu__account">
+                            <li class="dropdown-item dropdown-menu__account--item d-flex align-items-center">
+                                <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="dropdown-menu__account--image w-25 rounded-circle">
+                                <div class="dropdown-menu__account--info text-white ms-3">
+                                    <h1 class="account-info__name w-100"><?php echo $_SESSION['data']['user']?></h1>
+                                    <span class="account-info__type fs-2">Basic</span>
+                                </div>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a href="./layouts/authLayouts/loginPage.php" class="dropdown-item dropdown-menu__account--item fs-3 text-white">
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+                                    <span class="ms-3">Đăng xuất</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </header>
@@ -200,6 +225,10 @@
                         }
                     case 'discoverPageAll': {
                             include_once('../views/discoverPageAll.php');
+                            break;
+                        }
+                    case 'chartPage': {
+                            include_once('../views/chartPage.php');
                             break;
                         }
                     case 'librarySongPage': {
@@ -255,8 +284,8 @@
                 </div>
             </div>
 
-             <!-- modal xác nhận đổi tên playlist -->
-          <div class="modal addPlaylist fade" id="confirmRenamePlaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <!-- modal xác nhận đổi tên playlist -->
+            <div class="modal addPlaylist fade" id="confirmRenamePlaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content text-white">
                         <div class="modal-header border-bottom-0 ">
@@ -268,7 +297,7 @@
                         </div>
                         <div class="modal-footer border-top-0">
                             <button type="button" class="btn btn-secondary fs-3" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" disabled onclick="renamePlaylist()" >Đổi tên</button>
+                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" disabled onclick="renamePlaylist()">Đổi tên</button>
                         </div>
                     </div>
                 </div>
@@ -328,9 +357,93 @@
                 </div>
             </div>
         </footer>
+        <!-- modal chọn giao diện -->
+        <div class="container_header--content_extend--modal">
+            <div class="container_header--content_extend--modal_title">
+                <h3 class="container_header--content_extend--modal_title-text">
+                    Giao Diện
+                </h3>
+                <li class="container_header--content_extend--modal_title--icon">
+                    <i class="fas fa-times"></i>
+                </li>
+            </div>
+            <div class="container_header--content_extend--modal_themse">
+                <p class="container_header--content_extend--modal_themse--name">
+                    Chủ Đề
+                </p>
+                <div class="container_header--content_extend--modal_themse--items">
+                    <div class="row no-gutters container_header--content_extend--modal_themse--row">
+                        <div class="col l-2-4 m-6 c-6 m-024-129">
+                            <div class="container_header--content_extend--modal_themse--item">
+                                <li class="container_header--content_extend--modal_themse--item_img zom_img_modal">
+                                    <img src="https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/theme/rose.jpg" alt="" srcset="">
+                                </li>
+                                <div class="container_header--content_extend--modal_themse--btn">
+                                    <button class='container_header--content_extend--modal_themse_btn change_color'>ÁP DỤNG</button>
 
+                                </div>
+                            </div>
+                            <p class="container_header--content_extend--modal_themse--item_info">Rosé</p>
+                        </div>
+                        <div class="col l-2-4 m-6 c-6 m-024-129">
+                            <div class="container_header--content_extend--modal_themse--item">
+                                <li class="container_header--content_extend--modal_themse--item_img">
+                                    <img src="https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/theme/dark.jpg" alt="" srcset="">
+                                </li>
+                                <div class="container_header--content_extend--modal_themse--btn">
+                                    <button class='container_header--content_extend--modal_themse_btn change_color'>ÁP DỤNG</button>
+
+                                </div>
+                            </div>
+                            <p class="container_header--content_extend--modal_themse--item_info">Tối</p>
+                        </div>
+                        <div class="col l-2-4 m-6 c-6 m-024-129">
+                            <div class="container_header--content_extend--modal_themse--item">
+                                <li class="container_header--content_extend--modal_themse--item_img ">
+                                    <img src="https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/theme/purple.jpg" alt="" srcset="">
+                                </li>
+                                <div class="container_header--content_extend--modal_themse--btn">
+                                    <button class='container_header--content_extend--modal_themse_btn change_color'>ÁP DỤNG</button>
+
+                                </div>
+                            </div>
+                            <p class="container_header--content_extend--modal_themse--item_info">Tím</p>
+                        </div>
+                        <div class="col l-2-4 m-6 c-6 m-024-129">
+                            <div class="container_header--content_extend--modal_themse--item">
+                                <li class="container_header--content_extend--modal_themse--item_img">
+                                    <img src="https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/theme/green.jpg" alt="" srcset="">
+                                </li>
+                                <div class="container_header--content_extend--modal_themse--btn">
+                                    <button class='container_header--content_extend--modal_themse_btn change_color'>ÁP DỤNG</button>
+
+                                </div>
+                            </div>
+                            <p class="container_header--content_extend--modal_themse--item_info">Xanh Lá</p>
+                        </div>
+                        <div class="col l-2-4 m-6 c-6 m-024-129">
+                            <div class="container_header--content_extend--modal_themse--item">
+                                <li class="container_header--content_extend--modal_themse--item_img">
+                                    <img src="https://zmp3-static.zadn.vn/skins/zmp3-v6.1/images/theme/red.jpg" alt="" srcset="">
+                                </li>
+                                <div class="container_header--content_extend--modal_themse--btn">
+                                    <button class='container_header--content_extend--modal_themse_btn change_color'>ÁP DỤNG</button>
+
+                                </div>
+                            </div>
+                            <p class="container_header--content_extend--modal_themse--item_info">Đỏ</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
+
+
 </body>
+<script type="text/javascript" src="../public/js/musicChart.js"></script>
 <script type="text/javascript" src="../routes/web.js"></script>
 <script type="text/javascript" src="../public/js/slider.js"></script>
 <script type="text/javascript" src="../public/js/SwitchTab.js"></script>
@@ -341,5 +454,8 @@
 <script type="text/javascript" src="../public/js/addPlaylist.js"></script>
 <script type="text/javascript" src="../public/js/removePlaylist.js"></script>
 <script type="text/javascript" src="../public/js/renamePlaylist.js"></script>
+<script type="text/javascript" src="../public/js/fillterSong.js"></script>
+<script type="text/javascript" src="../public/js/changeTheme.js"></script>
+
 </html>
 <!-- footer -->

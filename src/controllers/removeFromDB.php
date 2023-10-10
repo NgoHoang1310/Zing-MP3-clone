@@ -71,10 +71,28 @@ class delete
         // echo "Hello World";
 
     }
+
+    public function removeFromFavourite() {
+        try {
+            global $conn;
+            if ($id = $_REQUEST['favouriteRemoveSongId']) {
+                $sql = "DELETE FROM favouritesong WHERE song_id= $id";
+                if ($conn->query($sql) === TRUE) {
+                    echo "Chèn dữ liệu thành công.";
+                } else {
+                    echo "Lỗi: " . $sql . "<br>" . $conn->error;
+                }
+            } else {
+                echo "Không nhận được song_id";
+            }
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }
 
 $manageSong = new delete();
-
 $manageSong->removeFromLib();
 $manageSong->removePlaylist();
 $manageSong->removeFromPlaylist();
+$manageSong->removeFromFavourite();

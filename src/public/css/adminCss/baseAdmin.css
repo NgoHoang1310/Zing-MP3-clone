@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --white-color: white;
+    --black-color: black;
+}
+
+/* Modal */
+.modal-dialog{
+    position: relative;
+    top: 20%;
+}
+
+.btn-primary{
+    background-color: #1dbfaf !important;
+}

@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     height: 270px;
-    border: solid 1px var(--boder-color);
+    border: solid 1px var(--icon-color);
     color: white;
     font-size: 18px;
     border-radius: 5px;
@@ -14,14 +14,14 @@
 
 .playlist-create-icon {
     padding: 8px 14px;
-    border: solid 2px white;
+    border: solid 1px white;
     border-radius: 50%;
 }
 
 .playlist-create-item:hover .playlist-create-icon,
 .playlist-create-item:hover .playlist-create-text {
-    color: var(--boder-color-active);
-    border-color: var(--boder-color-active);
+    color: var(--hover-color-text);
+    border-color: var(--hover-color-text);
 }
 
 .playlist-list__item {
@@ -88,7 +88,7 @@
 
 .modal-content {
     border-radius: 10px;
-    background-color: #34224f;
+    background-color: var(--modal-color);
 }
 
 .playlist-title__input {
@@ -107,6 +107,6 @@
 
 
 .modal-footer .btn-primary {
-    background-color: var(--boder-color-active);
+    background-color: var(--btn--all-color);
     border: none;
 }

@@ -1,0 +1,37 @@
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.row-user td {
+    height: 50px;
+    vertical-align: bottom;
+}
+
+.action-add {
+    width: 17%;
+    border: none;
+    font-size: 20px;
+    padding: 8px 4px;
+    background-color: #1dbfaf;
+    color: white;
+    border-radius: 10px;
+}
+
+.action-edit {
+    width: 60px;
+    border: none;
+    background-color: yellow;
+    color: black;
+    border-radius: 10px;
+}
+
+.action-delete {
+    width: 60px;
+    border: none;
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+}

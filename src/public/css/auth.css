@@ -1,0 +1,94 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.err-message{
+    color: red !important;
+
+}
+
+.succ-message{
+    color: #1dbfaf !important;
+}
+
+
+.invalid .form-control {
+    border-color: red !important;
+
+}
+
+.invalid .form-message {
+    color: red !important;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    min-height: 100vh;
+    background-image: url(../../public/img/auth/colorful_geometric_shapes_4k_8k_hd_abstract-7680x4320.jpg);
+    background-repeat: repeat;
+    background-size: cover;
+}
+
+.row {
+    max-width: 400px;
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+
+
+}
+
+.validation {
+    padding: 32px;
+}
+
+.btn-success {
+    width: 100%;
+    margin-top: 8px;
+    background-color: #ec1f60;
+}
+
+.form-control {
+    border: 1px solid #b3b3b3;
+    box-shadow: none;
+
+}
+
+.form-control:hover {
+    border-color: #1dbfaf;
+
+}
+
+.form-control:focus {
+    box-shadow: none;
+
+}
+
+.form-message {
+    font-size: 12px;
+}
+
+.check-password {
+    display: block;
+    margin-top: 4px;
+}
+
+.link{
+    margin-top: 6px;
+    text-align: center;   
+}
+
+.link a{
+    /* color: #1dbfaf; */
+    text-decoration: none;
+}
