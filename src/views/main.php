@@ -1,8 +1,11 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['data']['user'])) {
-        header('location: ./layouts/authLayouts/loginPage.php');
-    }
+session_start();
+if (!isset($_SESSION['data']['user'])) {
+    header('location: ./layouts/authLayouts/loginPage.php');
+} else {
+    echo '<script>localStorage.setItem("userId", "' . $_SESSION['data']['userId'] . '");</script>';
+}
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,13 +13,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="name" content="<?= htmlspecialchars($myjson) ?>">
     <title>Document</title>
     <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-tooltip@0.1.1/dist/chartjs-plugin-tooltip.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.min.js" integrity="sha512-7U4rRB8aGAHGVad3u2jiC7GA5/1YhQcQjxKeaVms/bT66i3LVBMRcBI9KwABNWnxOSwulkuSXxZLGuyfvo7V1A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/9973/9973495.png">
+
     <link rel="stylesheet" href="../public/css/discoverPage.css">
     <link rel="stylesheet" href="../public/css/libraryPage.css">
     <link rel="stylesheet" href="../public/css/footer.css">
@@ -40,8 +46,8 @@
 
                 <div class="sideBar-primary ">
                     <ul class="sideBar-primary__list">
-                        <a id="discoverTab" href="../views/main.php?page_layout=discoverPage" class="sideBar-primary__item sideBar-active text-white text-decoration-none">
-                            <div class="w-75 d-flex mx-auto">
+                        <a id="discoverTab" href="../views/main.php?page_layout=discoverPage" class="sideBar-primary__item <?php echo ($_REQUEST["page_layout"] == 'discoverPage') ? 'sideBar-active' : '' ?> text-white text-decoration-none">
+                            <div class="w-75 d-flex align-items-center mx-auto">
                                 <span><i class="fa-solid fa-compact-disc"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Khám Phá</span>
                                 <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
@@ -50,16 +56,16 @@
                         </a>
 
 
-                        <a id="chartTab" href="../views/main.php?page_layout=chartPage" class="sideBar-primary__item text-white text-decoration-none">
-                            <div class="w-75 d-flex mx-auto">
+                        <a id="chartTab" href="../views/main.php?page_layout=chartPage" class="sideBar-primary__item <?php echo ($_REQUEST["page_layout"] == 'chartPage') ? 'sideBar-active' : '' ?> text-white text-decoration-none">
+                            <div class="w-75 d-flex align-items-center mx-auto">
                                 <span><i class="fa-solid fa-chart-simple"></i></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">#zingChart</span>
                                 <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
                             </div>
                             </li>
 
-                            <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage" class="sideBar-primary__item  text-white text-decoration-none ">
-                                <div class="w-75 d-flex mx-auto">
+                            <a id="librarySongTab" href="../views/main.php?page_layout=librarySongPage" class="sideBar-primary__item <?php echo ($_REQUEST["page_layout"] == 'librarySongPage') ? 'sideBar-active' : '' ?> text-white text-decoration-none ">
+                                <div class="w-75 d-flex align-items-center mx-auto">
                                     <span><i class="fa-solid fa-bars"></i></i></span>
                                     <span class="flex-fill sideBar-primary__item--text ms-3">Thư viện</span>
                                     <span class="sideBar-primary__item--play"><i class="fa-solid fa-play"></i></span>
@@ -67,7 +73,7 @@
                             </a>
 
                             <li class="sideBar-primary__item separate">
-                                <div class="w-75 d-flex mx-auto">
+                                <div class="w-75 d-flex align-items-center mx-auto">
                                     <span class="sideBar-primary__separate"></span>
                                 </div>
                             </li>
@@ -76,23 +82,23 @@
 
                 <div class="sideBar-feature">
                     <ul class="sideBar-primary__list">
-                        <a href="../views/main.php?page_layout=currentListenPage" id="listenedTab" class="sideBar-primary__item  text-white text-decoration-none ">
-                            <div class="w-75 d-flex mx-auto">
+                        <a href="../views/main.php?page_layout=currentListenPage" id="listenedTab" class="sideBar-primary__item <?php echo ($_REQUEST["page_layout"] == 'currentListenPage') ? 'sideBar-active' : '' ?> text-white text-decoration-none ">
+                            <div class="w-75 d-flex align-items-center mx-auto">
                                 <span><i class="fa-solid fa-clock-rotate-left"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Nghe gần đây</span>
                             </div>
 
                         </a>
 
-                        <a href="../views/main.php?page_layout=favouriteSongPage" id="favouriteTab" class="sideBar-primary__item  text-white text-decoration-none">
-                            <div class="w-75 d-flex mx-auto">
+                        <a href="../views/main.php?page_layout=favouriteSongPage" id="favouriteTab" class="sideBar-primary__item <?php echo ($_REQUEST["page_layout"] == 'favouriteSongPage') ? 'sideBar-active' : '' ?> text-white text-decoration-none">
+                            <div class="w-75 d-flex align-items-center mx-auto">
                                 <span><i class="fa-solid fa-heart"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Bài hát yêu thích</span>
                             </div>
                         </a>
 
-                        <a href="../views/main.php?page_layout=playlistPage" id="playlistTab" class="sideBar-primary__item  text-white text-decoration-none">
-                            <div class="w-75 d-flex mx-auto">
+                        <a href="../views/main.php?page_layout=playlistPage" id="playlistTab" class="sideBar-primary__item <?php echo ($_REQUEST["page_layout"] == 'playlistPage') ? 'sideBar-active' : '' ?> text-white text-decoration-none">
+                            <div class="w-75 d-flex align-items-center mx-auto">
                                 <span><i class="fa-solid fa-bars"></i></span>
                                 <span class="flex-fill sideBar-primary__item--text ms-3">Playlist</span>
                             </div>
@@ -108,7 +114,7 @@
                 </div>
 
                 <div class="sideBar-addPlayList">
-                    <div class="w-75 d-flex mx-auto">
+                    <div class="w-75 d-flex align-items-center mx-auto">
                         <span><i class="fa-solid fa-plus"></i></span>
                         <span class="flex-fill sideBar-addPlayList__text ms-3" data-bs-toggle="modal" data-bs-target="#confirmAddPlaylist">Tạo PlayList mới</span>
                     </div>
@@ -132,7 +138,15 @@
                     </div> -->
 
                     <div class="controllers-search">
-                        <input placeholder="Tìm kiếm nghệ sỹ, bài hát" type="text" class="controllers-search__input">
+                        <input placeholder="Tìm kiếm bài hát" type="text" class="controllers-search__input" onkeyup="showHint(this.value)" onclick="showSearch()">
+                        <div class="header__search-history" onclick="showSearch()" >
+                            <h3 class="header__search-history--heading">Đề xuất</h3>
+                            <ul class="header__seacrh-history--lists">
+                                <li class="header__search-history--item">
+                                    <span id='2' class="song-search"  onclick="controllerMusic.clickOnSong(this.id,this)" >Tình yêu màu nắng</span>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -190,13 +204,13 @@
                     </div> -->
                     <div class="btn-group">
                         <div class="nav-header__personal--account dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="personal-account__image">
+                            <img src="<?php echo str_replace("../../../", "../", $_SESSION['data']['avatar']) ?>" alt="" class="personal-account__image">
                         </div>
                         <ul class="dropdown-menu dropdown-menu__account">
                             <li class="dropdown-item dropdown-menu__account--item d-flex align-items-center">
-                                <img src="../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg" alt="" class="dropdown-menu__account--image w-25 rounded-circle">
+                                <img src="<?php echo str_replace("../../../", "../", $_SESSION['data']['avatar']) ?>" alt="" class="dropdown-menu__account--image rounded-circle">
                                 <div class="dropdown-menu__account--info text-white ms-3">
-                                    <h1 class="account-info__name w-100"><?php echo $_SESSION['data']['user']?></h1>
+                                    <h1 class="account-info__name w-100"><?php echo $_SESSION['data']['user'] ?></h1>
                                     <span class="account-info__type fs-2">Basic</span>
                                 </div>
                             </li>
@@ -297,7 +311,26 @@
                         </div>
                         <div class="modal-footer border-top-0">
                             <button type="button" class="btn btn-secondary fs-3" data-bs-dismiss="modal">Hủy</button>
-                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" disabled onclick="renamePlaylist()">Đổi tên</button>
+                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" disabled onclick="renamePlaylist(),toast('Đã đổi tên playlist')">Đổi tên</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- modal xác nhận xóa playlist -->
+            <div class="modal addPlaylist fade" id="confirmDeletePlaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content text-white">
+                        <div class="modal-header border-bottom-0 ">
+                            <h1 class="modal-title fs-2" id="staticBackdropLabel">Xóa Playlist</h1>
+                            <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
+                        </div>
+                        <div class="modal-body ">
+                            <h2>Bạn có muốn xóa Playlist này không?</h2>
+                        </div>
+                        <div class="modal-footer border-top-0">
+                            <button type="button" class="btn btn-secondary fs-3" data-bs-dismiss="modal">Hủy</button>
+                            <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" onclick="confirmRemove(),toast('Đã xóa playlist')">Xóa</button>
                         </div>
                     </div>
                 </div>
@@ -319,9 +352,9 @@
                 </div>
             </div>
 
-            <div class="col-4 pe-5 ps-5">
+            <div class="col-4 d-flex flex-column justify-content-center pe-5 ps-5">
                 <div class="player">
-                    <div class="player-control">
+                    <div class="player-control pb-3">
                         <span class="player-control__function replay btn-hover">
                             <i class="fa-solid fa-reply"></i>
                         </span>
@@ -439,13 +472,27 @@
 
             </div>
         </div>
+        <!-- Toast -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <img src="https://cdn-icons-png.flaticon.com/512/9973/9973495.png" class="rounded me-2" alt="">
+                    <strong class="me-auto">Music Player</strong>
+                    <small>Vừa xong</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+
+                </div>
+            </div>
+        </div>
     </div>
 
 
 </body>
 <script type="text/javascript" src="../public/js/musicChart.js"></script>
 <script type="text/javascript" src="../routes/web.js"></script>
-<script type="text/javascript" src="../public/js/slider.js"></script>
+<script type="text/javascript" src="../public/js/slider.js"></script>   
 <script type="text/javascript" src="../public/js/SwitchTab.js"></script>
 <script type="text/javascript" src="../public/js/handlePlayMusic.js"></script>
 <script type="text/javascript" src="../public/js/handleLibraryTab.js"></script>
@@ -456,6 +503,7 @@
 <script type="text/javascript" src="../public/js/renamePlaylist.js"></script>
 <script type="text/javascript" src="../public/js/fillterSong.js"></script>
 <script type="text/javascript" src="../public/js/changeTheme.js"></script>
+<script type="text/javascript" src="../public/js/handleSearch.js"></script>
 
 </html>
 <!-- footer -->

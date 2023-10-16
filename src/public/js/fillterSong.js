@@ -1,16 +1,12 @@
-const fillterByCountry = () => {
-    let getFillterSong = $$('.new_release__btn');
-    getFillterSong.forEach(function (button) {
-        button.onclick = function (e) {
-            let getID = button.id;
-            $('.new_release__btn.new-release-active').classList.remove('new-release-active');
-            button.classList.add('new-release-active');
-            postURL(e,this.href);
-            setTimeout(function () {
-                navigateToPage('discoverPage.php?fillterId='+getID, ".container-content");
-            }, 1000)
-        }
-    })
+const fillterByCountry = (id, element,page) => {
+    if ($('.new_release__btn.new-release-active')) {
+        $('.new_release__btn.new-release-active').classList.remove('new-release-active');
+    }
+    element.classList.add('new-release-active');
+    console.log(element.href);
+    postURL(event, element.href);
+    navigateToPage(page+'?country=' +id, ".container-content");
+
 }
 
 // fillterByCountry();

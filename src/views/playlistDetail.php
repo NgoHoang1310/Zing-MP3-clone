@@ -1,9 +1,10 @@
+
 <div class="main-content">
     <div class="playlistDetail-content d-flex">
         <div class="col-3 playlist-list mt-5">
             <div class="playlist-list__item">
                 <div class="playlist-image position-relative ">
-                    <img src="../public/img/Anh chưa thương em đến vậy đâu.jpg" alt="">
+                    <img src="../public/img/avatar/spotify-playlist-cover-orange-headphones-032322.jpg" alt="">
                     <div class="playlist-control">
                         <span class="playlist-control__play">
                             <i class="fa-solid fa-arrow-left"></i>
@@ -35,13 +36,13 @@
                 <?php } else {
                 while ($row = $result->fetch_assoc()) {
                 ?>
-                    <div id="<?php echo $row['song_id'] ?>" <?php echo "playlistId=".$row['playlist_id'] ?> class="col-12 new_release__song d-flex text-white justify-content-around align-items-center mt-3 " onclick="controllerMusic.clickOnSong(this.id,this)" >
+                    <div id="<?php echo $row['song_id'] ?>" <?php echo "playlistId=" . $row['playlist_id'] ?> class="col-12 new_release__song d-flex text-white justify-content-around align-items-center mt-3 " onclick="controllerMusic.clickOnSong(this.id,this)">
                         <img src="<?php echo $row['image'] ?>" alt="" class="song__image ">
                         <div class="song__name flex-fill ms-5">
                             <h3><?php echo $row['title'] ?></h3>
                             <span>
                                 <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['artist'] ?>,</a>
-                                <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['album'] ?></a>
+                                <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['genre'] ?></a>
                             </span>
                         </div>
                         <div class="song__interact fs-4">
@@ -51,7 +52,7 @@
                                 </button>
                                 <ul class="dropdown-menu song-menu">
                                     <li class="dropdown-item> ">
-                                        <button type="button" class="btn liveToastBtn fs-4 text-white " onclick="removeFromPlaylist(this)">Xóa khỏi Playlist</button>
+                                        <button type="button" class="btn liveToastBtn fs-4 text-white " onclick="removeFromPlaylist(this),toast('Đã xóa bài hát khỏi playlist')">Xóa khỏi Playlist</button>
                                     </li>
                                 </ul>
                             </div>

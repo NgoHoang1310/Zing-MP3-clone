@@ -1,4 +1,6 @@
+// import {toast} from '../js/slider.js';
 let song;
+
 //call api từ file querySongs.php
 let api;
 switch ($('.main-content').id) {
@@ -25,13 +27,13 @@ const getDataSong = async (callback) => {
 
 const getDataFavourite = async (callback) => {
     await fetch('../model/apiFavourite.php')
-    .then(function (response) {
-        return response.json();
-    })
-    .then(callback)
-    .catch(function (error) {
-        console.log('Đã xảy ra lỗi: ' + error);
-    });
+        .then(function (response) {
+            return response.json();
+        })
+        .then(callback)
+        .catch(function (error) {
+            console.log('Đã xảy ra lỗi: ' + error);
+        });
 }
 //khai báo các biến cần sử dụng
 const PLAYER_STORAGE_KEY = 'music-player';
@@ -75,7 +77,7 @@ const controllerMusic = {
                     getMusicName.innerText = song[songDefaultIndex].title;
                     getCdThumb.setAttribute('src', `${song[songDefaultIndex].image}`);
                     getSongArtist.innerText = song[songDefaultIndex].artist + ', ';
-                    getSongAlbum.innerText = song[songDefaultIndex].album;
+                    getSongAlbum.innerText = song[songDefaultIndex].genre;
                     getAudio.src = song[songDefaultIndex].file_path;
                 },
 
@@ -95,7 +97,7 @@ const controllerMusic = {
                         }
                         this.renderSongPlayer();
                         app.autoActiveSong();
-                        app.renderFavouriteSong(songDefaultIndex+1);
+                        app.renderFavouriteSong(song[songDefaultIndex].song_id);
 
                     }
 
@@ -112,7 +114,7 @@ const controllerMusic = {
                         }
                         this.renderSongPlayer();
                         app.autoActiveSong();
-                        app.renderFavouriteSong(songDefaultIndex+1);
+                        app.renderFavouriteSong(song[songDefaultIndex].song_id);
                     }
                 },
                 //hàm play random
@@ -140,80 +142,97 @@ const controllerMusic = {
                 //hàm tự động active song khi nhấn prev hoặc next
                 autoActiveSong: function () {
                     let getNewReleaseSong = $$('.new_release__song');
-                    if (songDefaultIndex < getNewReleaseSong.length) {
-                        getNewReleaseSong.forEach((song) => {
-                            if ((parseInt(song.id) - 1 == parseInt(songDefaultIndex))) {
-                                if ($('.new_release__song.songActive')) {
-                                    $('.new_release__song.songActive').classList.remove('songActive');
-                                    song.classList.add('songActive');
-                                } else {
-                                    song.classList.add('songActive');
-                                }
-                                console.log(song.id)
+                    index = song[songDefaultIndex].song_id;
+                    // if (index - 1 < getNewReleaseSong.length) {
+                    getNewReleaseSong.forEach((song) => {
+                        if ((parseInt(song.id) == parseInt(index))) {
+                            if ($('.new_release__song.songActive')) {
+                                $('.new_release__song.songActive').classList.remove('songActive');
+                                song.classList.add('songActive');
+                            } else {
+                                song.classList.add('songActive');
                             }
-                        })
-                    } else {
-                        if ($('.col-4.new_release__song.songActive')) {
-                            $('.col-4.new_release__song.songActive').classList.remove('songActive');
+                            console.log(song.id)
                         }
-                    }
+                    })
+                    // } else {
+                    //     if ($('.col-4.new_release__song.songActive')) {
+                    //         $('.col-4.new_release__song.songActive').classList.remove('songActive');
+                    //     }
+                    // }
 
 
                 },
                 //thêm bài hát vào nghe gần đây
                 currentSongListen: function () {
+                    let getUserId = localStorage.getItem("userId");
+
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = function () {
                         if (this.readyState == 4 && this.status == 200) {
-                            console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + songDefaultIndex);
+                            console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + (songDefaultIndex));
                         }
                     };
-                    xhttp.open("POST", "../controllers/addToDB.php?currentID=" + songDefaultIndex, true);
+                    xhttp.open("POST", "../controllers/addToDB.php?currentID=" + (songDefaultIndex) + "&" + "userId=" + getUserId, true);
                     xhttp.send();
 
                 },
                 //thêm bài hát vào bài hát yêu thích
                 loveSong: function () {
-                   isLoveSong = !isLoveSong;
-                   getLoveSongIcon.classList.toggle('loveSongActive');  
-                   var xhttp = new XMLHttpRequest();
-                   xhttp.onreadystatechange = function () {
-                       if (this.readyState == 4 && this.status == 200) {
-                           console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + songDefaultIndex);
-                       }
-                   };
-                console.log(songDefaultIndex);
-                   if(isLoveSong) {
-                    xhttp.open("POST", "../controllers/addToDB.php?favouriteAddSongId=" + (songDefaultIndex + 1), true);
-                    xhttp.send();
-                   }else{
-                    xhttp.open("POST", "../controllers/removeFromDB.php?favouriteRemoveSongId=" + (songDefaultIndex + 1), true);
-                    xhttp.send();
-                   }
-      
+                    isLoveSong = !isLoveSong;
+                    getLoveSongIcon.classList.toggle('loveSongActive');
+                    let getUserId = localStorage.getItem("userId");
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState == 4 && this.status == 200) {
+                            console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + song[songDefaultIndex].song_id);
+                        }
+                    };
+                    console.log(song[songDefaultIndex].song_id);
+                    if (isLoveSong) {
+                        xhttp.open("POST", "../controllers/addToDB.php?favouriteAddSongId=" + song[songDefaultIndex].song_id + "&" + "userId=" + getUserId, true);
+                        xhttp.send();
+                        toast("Đã thêm bài hát vào yêu thích");
+                    } else {
+                        xhttp.open("POST", "../controllers/removeFromDB.php?favouriteRemoveSongId=" + song[songDefaultIndex].song_id + "&" + "userId=" + getUserId, true);
+                        xhttp.send();
+                        toast("Đã xóa bài hát khỏi yêu thích");
+
+                    }
                 },
 
                 //hàm render ra icon các bài hát có trong favourite song
-                renderFavouriteSong: function(songIndex) {
-                    getDataFavourite(function(songs) {
-                           for(let i = 0; i < songs.length;i++) {
-                                if(songs[i].song_id == songIndex) {
-                                    isExistLoveSong = true;
-                                    break;
-                                }else{
-                                    isExistLoveSong = false;
-                                }
-                           }
-                        if(isExistLoveSong) {
-                            getLoveSongIcon.classList.add('loveSongActive');  
-                        }else{
-                            getLoveSongIcon.classList.remove('loveSongActive');  
+                renderFavouriteSong: function (songIndex) {
+                    getDataFavourite(function (songs) {
+                        for (let i = 0; i < songs.length; i++) {
+                            if (songs[i].song_id == songIndex) {
+                                isExistLoveSong = true;
+                                isLoveSong = true;
+                                break;
+                            } else {
+                                isExistLoveSong = false;
+                                isLoveSong = false;
+                            }
                         }
-                       
+                        if (isExistLoveSong) {
+                            getLoveSongIcon.classList.add('loveSongActive');
+                        } else {
+                            getLoveSongIcon.classList.remove('loveSongActive');
+                        }
+
                     })
                 },
                 //hàm xử lí các sự kiện
                 handleEvents: function () {
+
+                    var cdThumbAnimate = getCdThumb.animate([
+                        { transform: 'rotate(360deg)' }
+                    ], {
+                        duration: 10000,
+                        iterations: Infinity
+                    })
+
+                    cdThumbAnimate.pause();
                     //xử lí khi nhấn next
                     getNextBtn.onclick = function () {
                         app.nextSong();
@@ -245,6 +264,7 @@ const controllerMusic = {
                     }
                     //xử lí khi bài hát đang chạy
                     getAudio.onplay = function () {
+                        cdThumbAnimate.play();
                         getPauseBtn.classList.remove('disable');
                         getPlayBtn.classList.add('disable');
                         getAudio.ontimeupdate = function () {
@@ -258,6 +278,7 @@ const controllerMusic = {
                     }
                     //xử lí khi bài hát đang dừng
                     getAudio.onpause = function () {
+                        cdThumbAnimate.pause();
                         getPauseBtn.classList.add('disable');
                         getPlayBtn.classList.remove('disable');
                         getInputRange.onchange = function () {
@@ -296,7 +317,7 @@ const controllerMusic = {
                     // this.handleSrollTop();
                     this.handleEvents();
                     this.changeVolume();
-                    this.renderFavouriteSong(songDefaultIndex+1);
+                    this.renderFavouriteSong(songDefaultIndex + 1);
                     getRandomBtn.classList.toggle('active', isRandom);
                     getReplayBtn.classList.toggle('active', isReplay);
                 }
@@ -308,6 +329,7 @@ const controllerMusic = {
     },
     //hàm xử lí khi nhấn trực tiếp vào bài hát
     clickOnSong: function (id, songActive) {
+        // let id = songActive.getAttribute("index");
         if ($('.new_release__song.songActive')) {
             $('.new_release__song.songActive').classList.remove('songActive');
             songActive.classList.add('songActive');
@@ -316,16 +338,18 @@ const controllerMusic = {
             songActive.classList.add('songActive');
         }
         getDataSong(function (data) {
-            let song = data;
             songDefaultIndex = id - 1;
-            getMusicName.innerText = song[songDefaultIndex].title;
-            getCdThumb.setAttribute('src', `${song[songDefaultIndex].image}`);
-            getSongArtist.innerText = song[songDefaultIndex].artist + ', ';
-            getSongAlbum.innerText = song[songDefaultIndex].album;
-            getAudio.src = song[songDefaultIndex].file_path;
+            let song = data.find(function (song_id) {
+                return song_id.song_id == id;
+            });
+            getMusicName.innerText = song.title;
+            getCdThumb.setAttribute('src', `${song.image}`);
+            getSongArtist.innerText = song.artist + ', ';
+            getSongAlbum.innerText = song.genre;
+            getAudio.src = song.file_path;
             getAudio.play();
         })
-        console.log(songDefaultIndex);
+        console.log(id);
     },
 
 

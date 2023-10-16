@@ -1,6 +1,6 @@
 <?php
    include_once('../model/connectDB.php');
-   $sql = "SELECT * FROM Songs";
+   $sql = "SELECT * FROM Songs ";
    $result = $conn->query($sql);
    $i = 0;
    

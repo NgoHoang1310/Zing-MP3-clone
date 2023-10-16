@@ -1,5 +1,11 @@
-<!-- content -->
+<?php
+session_start();
+if (!isset($_SESSION['data']['user'])) {
+    header('location: ./layouts/authLayouts/loginPage.php');
+}
 
+?>
+<!-- content -->
 <div class="main-content">
     <div class="library-header">
         <span class="library-header__text text-white d-flex align-items-center">
@@ -46,7 +52,7 @@
                 <div id="<?php echo $row['playlist_id'] ?>" class="col-2 playlist-list mt-5">
                     <div class="playlist-list__item">
                         <div class="playlist-image position-relative ">
-                            <img src="../public/img/Anh chưa thương em đến vậy đâu.jpg" alt="">
+                            <img src="../public/img/avatar/spotify-playlist-cover-orange-headphones-032322.jpg" alt="">
                             <div class="playlist-control">
                                 <span class="playlist-control__delete" data-bs-toggle="modal" data-bs-target="#confirmDeletePlaylist" onclick="getPlaylistId(this)">
                                     <i class="fa-solid fa-xmark"></i>
@@ -60,30 +66,13 @@
                             </div>
                         </div>
                         <span class="playlist-title mt-3"><?php echo $row['title'] ?></span>
-                        <span class="playlist-user">Ngô Tuấn Hoàng</span>
+                        <span class="playlist-user"><?php echo $_SESSION['data']['user'] ?></span>
                     </div>
                 </div>
         <?php }
         } ?>
     </div>
-    <!-- modal xác nhận xóa playlist -->
-    <div class="modal addPlaylist fade" id="confirmDeletePlaylist" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content text-white">
-                <div class="modal-header border-bottom-0 ">
-                    <h1 class="modal-title fs-2" id="staticBackdropLabel">Xóa Playlist</h1>
-                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
-                </div>
-                <div class="modal-body ">
-                    <h2>Bạn có muốn xóa Playlist này không?</h2>
-                </div>
-                <div class="modal-footer border-top-0">
-                    <button type="button" class="btn btn-secondary fs-3" data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary fs-3" data-bs-dismiss="modal" onclick="confirmRemove()">Xóa</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
 </div>

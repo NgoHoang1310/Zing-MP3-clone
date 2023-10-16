@@ -20,7 +20,9 @@ class Authentication
                         header('location: ../../views/layouts/authLayouts/registerPage.php');
                         exit;
                     } else {
-                        $addUser = "INSERT INTO accounts (`Name`, `Email`,`Password`) VALUES ('$name', '$email','$password')";
+                        $avatar = "../../../public/img/avatar/7680768d2115009e96ad70bd57146e74.jpg";
+                        $role = 2;
+                        $addUser = "INSERT INTO accounts (`Name`, `Email`,`Password`,`Avatar`,`Role`) VALUES ('$name', '$email','$password','$avatar','$role')";
                         if ($conn->query($addUser)) {
                             echo 'Đã thêm tài khoản mới';
                             $_SESSION['data'] = array('errCode' => "0", 'message' =>  'Đăng kí thành công !');
@@ -53,12 +55,12 @@ class Authentication
                         $row = $result->fetch_assoc();
                         if ($row['Password'] == $password) {
                             echo 'Đăng nhập thành công';
-                            $_SESSION['data'] = array('errCode' => "0", 'message' => 'Đăng nhập thành công!', 'user' => $row['Name']);
+                            $_SESSION['data'] = array('errCode' => "0", 'message' => 'Đăng nhập thành công!', 'user' => $row['Name'], 'avatar' => $row['Avatar'],'userId' => $row['id']);
                             sleep(2);
-                            if ($row['Role'] != 2) {
+                            if ($row['Role'] == 1) {
                                 header('location: ../../views/layouts/adminLayouts/dardboard.php');
                             } else {
-                                header('location: ../../views/main.php');
+                                header('location: ../../views/main.php?page_layout=discoverPage');
                             }
                             exit;
                         } else {

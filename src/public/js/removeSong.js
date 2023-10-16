@@ -1,5 +1,6 @@
 const removeFromLib = (element) => {
   let getID;
+  let getUserId = localStorage.getItem("userId");
   getID = element.closest(".new_release__song").id;
   //ajax
   var xhttp = new XMLHttpRequest();
@@ -8,12 +9,12 @@ const removeFromLib = (element) => {
       console.log("Đã chèn giá trị id vào cơ sở dữ liệu.");
     }
   };
-  xhttp.open("POST", "../controllers/removeFromDB.php?libraryRemoveId=" + getID, true);
+  xhttp.open("POST", "../controllers/removeFromDB.php?libraryRemoveId=" + getID + "&" + "userId=" + getUserId, true);
   xhttp.send();
   setTimeout(function () {
     navigateToPage('librarySongPage.php', ".container-content");
   }, 1000);
-
+  // console.log(getID+' '+getUserId);
 }
 
 const removeFromPlaylist = (element) => {
@@ -35,6 +36,8 @@ const removeFromPlaylist = (element) => {
 
 const removeFromFavourite = (element) => {
   let getID;
+  let getUserId = localStorage.getItem("userId");
+
   getID = element.closest(".new_release__song").id;
   //ajax
   var xhttp = new XMLHttpRequest();
@@ -43,7 +46,7 @@ const removeFromFavourite = (element) => {
       console.log("Đã chèn giá trị id vào cơ sở dữ liệu.");
     }
   };
-  xhttp.open("POST", "../controllers/removeFromDB.php?favouriteRemoveSongId=" + getID, true);
+  xhttp.open("POST", "../controllers/removeFromDB.php?favouriteRemoveSongId=" + getID + "&" + "userId=" + getUserId, true);
   xhttp.send();
   setTimeout(function () {
     navigateToPage('favouriteSongPage.php', ".container-content");

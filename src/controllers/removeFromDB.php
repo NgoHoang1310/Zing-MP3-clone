@@ -8,8 +8,8 @@ class delete
     {
         try {
             global $conn;
-            if ($id = $_REQUEST['libraryRemoveId']) {
-                $sql = "DELETE FROM librarysong WHERE song_id= $id";
+            if (($id = $_REQUEST['libraryRemoveId']) && ($userId = $_REQUEST['userId'])) {
+                $sql = "DELETE FROM librarysong WHERE song_id= $id AND user_id = $userId";
                 if ($conn->query($sql) === TRUE) {
                     echo "<h1>Chèn dữ liệu thành công.</h1>";
                 } else {
@@ -48,7 +48,6 @@ class delete
         } catch (Exception $e) {
             echo "Lỗi" . $e->getMessage();
         }
-
     }
 
     public function removeFromPlaylist()
@@ -72,11 +71,12 @@ class delete
 
     }
 
-    public function removeFromFavourite() {
+    public function removeFromFavourite()
+    {
         try {
             global $conn;
-            if ($id = $_REQUEST['favouriteRemoveSongId']) {
-                $sql = "DELETE FROM favouritesong WHERE song_id= $id";
+            if (($id = $_REQUEST['favouriteRemoveSongId']) && ($userId = $_REQUEST['userId'])) {
+                $sql = "DELETE FROM favouritesong WHERE song_id= $id AND user_id = $userId";
                 if ($conn->query($sql) === TRUE) {
                     echo "Chèn dữ liệu thành công.";
                 } else {

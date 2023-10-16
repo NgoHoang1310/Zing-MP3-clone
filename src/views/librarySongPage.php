@@ -1,5 +1,11 @@
 <!-- content -->
+<?php
+session_start();
+if (!isset($_SESSION['data']['user'])) {
+    header('location: ./layouts/authLayouts/loginPage.php');
+}
 
+?>
 <div id="libraryPage" class="main-content">
     <div class="library-header">
         <span class="library-header__text text-white d-flex align-items-center">
@@ -43,7 +49,7 @@
                     <h3><?php echo $row['title'] ?></h3>
                     <span>
                         <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['artist'] ?>,</a>
-                        <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['album'] ?></a>
+                        <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['genre'] ?></a>
                     </span>
                 </div>
                 <div class="song__interact fs-4">
@@ -52,7 +58,7 @@
                             <i class="fas fa-ellipsis-h"></i>
                         </button>
                         <ul class="dropdown-menu song-menu">
-                            <li class="dropdown-item> " onclick="removeFromLib(this,event),toast()">
+                            <li class="dropdown-item> " onclick="removeFromLib(this,event),toast('Đã xóa bài hát khỏi thư viện')">
                                 <button type="button" class="btn liveToastBtn fs-4 text-white ">Xóa khỏi thư viện</button>
                             </li>
                         </ul>
@@ -62,19 +68,6 @@
             </div>
     <?php }
     } ?>
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="https://cdn-icons-png.flaticon.com/512/9973/9973495.png" class="rounded me-2" alt="">
-                <strong class="me-auto">Music Player</strong>
-                <small>Vừa xong</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Đã xóa bài hát vào thư viện
-            </div>
-        </div>
-    </div>
 </div>
 
 <!-- content -->

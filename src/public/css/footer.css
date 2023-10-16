@@ -33,9 +33,9 @@
 }
 
 .music-control__image{
-    width: 50px;
-    height: 50px;
-    border-radius: 6px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
 .player-control {
@@ -45,8 +45,9 @@
 }
 
 .player-control__function {
-    display: block;
+    display: flex;
     width: 40px;
+    align-items: center;
     height: 40px;
     line-height: 40px;
     text-align: center;
@@ -54,6 +55,7 @@
     color: white;
     font-size: 14px;
     margin: 0 4px;
+    justify-content: center;
 }
 
 .player-control__function.play,

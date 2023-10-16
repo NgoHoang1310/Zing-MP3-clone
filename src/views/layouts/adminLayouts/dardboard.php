@@ -1,9 +1,10 @@
 <?php
-    session_start();
-    if (isset($_SESSION['data'])) {
-        unset($_SESSION['data']);
-    }
- ?>
+session_start();
+if (isset($_SESSION['data']['user'])) {
+    unset($_SESSION['data']);
+}
+error_reporting(0);
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,8 +31,30 @@
             include_once('../adminLayouts/sidebar.php');
             ?>
             <div class="col-10 main">
-                <div class="content">
-                    hello
+                <h1 id="header">
+                    MUSIC PLAYER
+                </h1>
+                <div class="content d-flex">
+                    <div class="col-6 darhBoard-Music">
+                        <div class="darhBoard-Music__Container">
+                            <h1 class="text-white text-center pt-3">Tổng số bài hát</h1>
+                            <span class="quantity music-quantity" >50</span>
+                            <h3 class="text-white text-center pt-3">Bài hát mới nhất</h3>
+                            <span class="quantity music-quantity" >50</span>
+                            <h3 class="text-white text-center pt-3">Nghe nhiều nhất</h3>
+                            <span class="quantity music-quantity" >50</span>
+                        </div>
+                    </div>
+                    <div class="col-6 darhBoard-User">
+                        <div class="darhBoard-User__Container">
+                        <h1 class="text-white text-center pt-3">Tổng số người dùng</h1>
+                            <span class="quantity music-quantity" >50</span>
+                            <h3 class="text-white text-center pt-3">Admin</h3>
+                            <span class="quantity music-quantity" >50</span>
+                            <h3 class="text-white text-center pt-3">User</h3>
+                            <span class="quantity music-quantity" >50</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

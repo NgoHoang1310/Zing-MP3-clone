@@ -1,5 +1,11 @@
 <!-- content -->
+<?php
+session_start();
+if (!isset($_SESSION['data']['user'])) {
+    header('location: ./layouts/authLayouts/loginPage.php');
+}
 
+?>
 <div class="main-content">
     <div class="library-header">
         <span class="library-header__text text-white d-flex align-items-center">
@@ -41,7 +47,7 @@
                     <h3><?php echo $row['title'] ?></h3>
                     <span>
                         <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['artist'] ?>,</a>
-                        <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['album'] ?></a>
+                        <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['genre'] ?></a>
                     </span>
                 </div>
                 <div class="song__interact fs-4">
@@ -50,7 +56,7 @@
                             <i class="fas fa-ellipsis-h"></i>
                         </button>
                         <ul class="dropdown-menu song-menu">
-                            <li class="dropdown-item> " onclick="removeFromFavourite(this,event)">
+                            <li class="dropdown-item> " onclick="removeFromFavourite(this,event),toast('Đã xóa bài hát khỏi yêu thích')">
                                 <button type="button" class="btn liveToastBtn fs-4 text-white ">Xóa khỏi yêu thích</button>
                             </li>
                         </ul>

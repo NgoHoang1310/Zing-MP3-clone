@@ -7,7 +7,7 @@
             <span>
                 <i class="fas fa-home"></i>
             </span>
-            <a class="sidebar-list__item--link" href="./dardboard.php">Dardboard</a>
+            <a class="sidebar-list__item--link" href="./dardboard.php">Darhboard</a>
         </li>
         <li class="sidebar-list__item <?php echo ($page == "manageUser.php") ? 'active' : '' ?>">
             <span>

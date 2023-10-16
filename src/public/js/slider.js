@@ -29,10 +29,12 @@ setInterval(function() {
         slide.appendChild(imgs[0])
 },3000);
 
-function toast() {
+function toast(message) {
     // const toastTrigger = document.getElementByIdr('liveToastBtn')
     const toastLiveExample = document.getElementById('liveToast');
     console.log(toastLiveExample);
+    console.log(message);
+    document.querySelector('.toast-body').innerText = message;
     // console.log(toastTrigger);
     
       const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);

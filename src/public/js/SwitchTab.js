@@ -20,7 +20,7 @@ const handleSwitch = () => {
                     break;
                 case 'chartTab':
                     navigateToPage('chartPage.php', ".container-content");
-                   setTimeout(chartLine,200);
+                    setTimeout(chartLine, 200);
                     break;
                 case 'librarySongTab':
                     navigateToPage('librarySongPage.php', ".container-content");
@@ -28,11 +28,11 @@ const handleSwitch = () => {
                 case 'listenedTab':
                     navigateToPage('currentListenPage.php', ".container-content");
                     break;
-                case 'favouriteTab':
-                    navigateToPage('favouriteSongPage.php', ".container-content");
-                    break;
                 case 'playlistTab':
                     navigateToPage('playlistPage.php', ".container-content");
+                    break;
+                case 'favouriteTab':
+                    navigateToPage('favouriteSongPage.php', ".container-content");
                     break;
                 default:
                     navigateToPage('discoverPage.php', ".container-content");

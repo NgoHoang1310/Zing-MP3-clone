@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['data']['user'])) {
+    header('location: ./layouts/authLayouts/loginPage.php');
+}
+error_reporting(0);
+?>
 <!-- content -->
 <div class="main-content">
     <div class="library-header">
@@ -19,10 +26,10 @@
 
     <div class="library-listSong text-white">
         <div class="new_release-nav d-flex justify-content-between mt-5">
-            <div class="new_release-nav-btn ">
-                <button class="new_release__btn new-release-active">TẤT CẢ</button>
-                <button class="new_release__btn">VIỆT NAM</button>
-                <button class="new_release__btn">QUỐC TẾ</button>
+        <div class="new_release-nav-btn mb-5">
+                <a href="../views/main.php?page_layout=discoverPageAll&country=ALL" id="ALL" class="new_release__btn <?php echo (($_REQUEST["country"]=='ALL')||($_REQUEST["page_layout"]=='discoverPageAll'))?'new-release-active':''?>" onclick="fillterByCountry(this.id,this,'discoverPageAll.php')">TẤT CẢ</a>
+                <a href="../views/main.php?page_layout=discoverPageAll&country=VN" id="VN" class="new_release__btn <?php echo ($_REQUEST["country"]=='VN')?'new-release-active':''?>" onclick="fillterByCountry(this.id,this,'discoverPageAll.php')">VIỆT NAM</a>
+                <a href="../views/main.php?page_layout=discoverPageAll&country=US" id="US" class="new_release__btn <?php echo ($_REQUEST["country"]=='US')?'new-release-active':''?>" onclick="fillterByCountry(this.id,this,'discoverPageAll.php')">QUỐC TẾ</a>
             </div>
         </div>
         <div class="library-songContent">
@@ -37,7 +44,7 @@
                 $playlist = new querySQL();
 
                 $discoverAll = new querySQL();
-
+                $index = 0;
                 $result = $discoverAll->renderToDisAll();
                 while ($row = $result->fetch_assoc()) {
                     $resultPlaylist = $playlist->renderPlaylist();
@@ -49,7 +56,7 @@
                             <h3><?php echo $row['title']; ?></h3>
                             <span>
                                 <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['artist']; ?>,</a>
-                                <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['album']; ?></a>
+                                <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['genre']; ?></a>
                             </span>
                         </div>
                         <div class="song__interact fs-4" onclick="event.stopPropagation()">
@@ -58,7 +65,7 @@
                                     <i class="fas fa-ellipsis-h"></i>
                                 </button>
                                 <ul class="dropdown-menu song-menu">
-                                    <li onclick="addToLib(this)" class="dropdown-item ">
+                                    <li onclick="addToLib(this),toast('Đã thêm bài hát vào thư viện')" class="dropdown-item ">
                                         <button type="button" class="btn liveToastBtn fs-4 text-white ">Thêm vào thư viện</button>
                                     </li>
                                     <li class="dropdown-item dropend">
@@ -69,7 +76,7 @@
                                             <ul class="dropdown-menu song-menu ">
                                                 <?php while ($rowPlaylist = $resultPlaylist->fetch_assoc()) {
                                                 ?>
-                                                    <li><button id="<?php echo $rowPlaylist['playlist_id'] ?>" class="dropdown-item " type="button" onclick="addToPlaylist(this)"><?php echo $rowPlaylist['title'] ?></button></li>
+                                                    <li><button id="<?php echo $rowPlaylist['playlist_id'] ?>" class="dropdown-item " type="button" onclick="addToPlaylist(this),toast('Đã thêm bài hát vào playlist')"><?php echo $rowPlaylist['title'] ?></button></li>
                                                 <?php } ?>
                                             </ul>
                                         <?php } ?>
@@ -79,7 +86,10 @@
 
                         </div>
                     </div>
-                <?php } ?>
+                  
+                <?php
+                  $index++;
+             } ?>
             </div>
         </div>
     </div>

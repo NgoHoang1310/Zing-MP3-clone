@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION['data']['user'])) {
+    header('location: ./layouts/authLayouts/loginPage.php');
+}
+error_reporting(0);
+?>
 <div id="discoverPage" class="main-content">
 
     <div class="hot_list">
@@ -15,9 +22,9 @@
         <h3>Mới Phát Hành</h3>
         <div class="new_release-nav d-flex justify-content-between mt-5">
             <div class="new_release-nav-btn">
-                <a href="../views/main.php?page_layout=discoverPage" id="ALL" class="new_release__btn new-release-active">TẤT CẢ</a>
-                <a href="../views/main.php?page_layout=discoverPage" id="VN" class="new_release__btn">VIỆT NAM</a>
-                <a href="../views/main.php?page_layout=discoverPage" id="US" class="new_release__btn">QUỐC TẾ</a>
+                <a href="../views/main.php?page_layout=discoverPage&country=ALL" id="ALL" class="new_release__btn <?php echo (($_REQUEST["country"] == 'ALL')) ? 'new-release-active' : '' ?>" onclick="fillterByCountry(this.id,this,'discoverPage.php')">TẤT CẢ</a>
+                <a href="../views/main.php?page_layout=discoverPage&country=VN" id="VN" class="new_release__btn <?php echo (($_REQUEST["country"] == 'VN')) ? 'new-release-active' : '' ?>" onclick="fillterByCountry(this.id,this,'discoverPage.php')">VIỆT NAM</a>
+                <a href="../views/main.php?page_layout=discoverPage&country=US" id="US" class="new_release__btn <?php echo (($_REQUEST["country"] == 'US')) ? 'new-release-active' : '' ?>" onclick="fillterByCountry(this.id,this,'discoverPage.php')">QUỐC TẾ</a>
             </div>
 
             <a class="new_release-nav-all fs-4 text-white d-block text-decoration-none me-5" href="../views/main.php?page_layout=discoverPageAll" onclick="navigateToAll(event, this.getAttribute('href'))">TẤT CẢ</a>
@@ -32,6 +39,7 @@
             // <!-- render bài hát ra view -->
             $discover = new querySQL();
             $result = $discover->renderToDis();
+            $index = 0;
             while ($row = $result->fetch_assoc()) {
                 $resultPlaylist = $playlist->renderPlaylist();
                 $num_rows_playlist = mysqli_num_rows($resultPlaylist);
@@ -43,7 +51,7 @@
                         <h3><?php echo $row['title'] ?></h3>
                         <span>
                             <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['artist'] ?>,</a>
-                            <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['album'] ?></a>
+                            <a style="text-decoration: none; color: #ccc; font-size: 12px; font-weight:500;" href=""><?php echo $row['genre'] ?></a>
                         </span>
                     </div>
                     <!-- sự kiện thêm bài hát -->
@@ -53,7 +61,7 @@
                                 <i class="fas fa-ellipsis-h"></i>
                             </button>
                             <ul class="dropdown-menu song-menu">
-                                <li onclick="addToLib(this),toast()" class="dropdown-item ">
+                                <li onclick="addToLib(this),toast('Đã thêm bài hát vào thư viện')" class="dropdown-item ">
                                     <button id="liveToastBtn" type="button" class="btn fs-4 text-white ">Thêm vào thư viện</button>
                                 </li>
                                 <li class="dropdown-item dropend">
@@ -64,7 +72,7 @@
                                         <ul class="dropdown-menu song-menu ">
                                             <?php while ($rowPlaylist = $resultPlaylist->fetch_assoc()) {
                                             ?>
-                                                <li><button id="<?php echo $rowPlaylist['playlist_id'] ?>" class="dropdown-item " type="button" onclick="addToPlaylist(this)"><?php echo $rowPlaylist['title'] ?></button></li>
+                                                <li><button id="<?php echo $rowPlaylist['playlist_id'] ?>" class="dropdown-item " type="button" onclick="addToPlaylist(this),toast('Đã thêm bài hát vào playlist')"><?php echo $rowPlaylist['title'] ?></button></li>
                                             <?php } ?>
                                         </ul>
                                     <?php } ?>
@@ -75,7 +83,9 @@
 
                     </div>
                 </div>
-            <?php }
+            <?php
+                $index++;
+            }
 
             ?>
 
@@ -84,18 +94,5 @@
         </div>
 
 
-    </div>
-    <div class="toast-container position-fixed bottom-0 end-0 p-3">
-        <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="toast-header">
-                <img src="https://cdn-icons-png.flaticon.com/512/9973/9973495.png" class="rounded me-2" alt="">
-                <strong class="me-auto">Music Player</strong>
-                <small>Vừa xong</small>
-                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-            <div class="toast-body">
-                Đã thêm bài hát vào thư viện
-            </div>
-        </div>
     </div>
 </div>
