@@ -194,9 +194,11 @@ body {
 }
 
 .quantity.music-quantity {
+    text-align: center;
     color: white;
     display: block;
-    width: 12px;
+    width: 70%;
     margin: 4px auto;
     font-size: 30px;
+    
 }

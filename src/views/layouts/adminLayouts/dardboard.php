@@ -4,6 +4,28 @@ if (isset($_SESSION['data']['user'])) {
     unset($_SESSION['data']);
 }
 error_reporting(0);
+include('../../../controllers/admin/crudMusic.php');
+include('../../../controllers/admin/crudUser.php');
+$arrUser = array();
+$resultUser = $user->getAllUser();
+$arrMusic = array();
+$resultMusic = $music->getAllMusic();
+while (($row_1 = $resultUser->fetch_assoc())) {
+    array_push($arrUser, $row_1);
+}
+while (($row_2 = $resultMusic->fetch_assoc())) {
+    array_push($arrMusic, $row_2);
+}
+$adminQuantity = 0;
+$userQuantity = 0;
+foreach ($arrUser as $item) {
+    if ($item['Role'] == 1) {
+        $adminQuantity++;
+    } else {
+        $userQuantity++;
+    }
+}
+$songOutStanding = $music->songOutStanding()->fetch_assoc()['title'];
 ?>
 
 <!DOCTYPE html>
@@ -38,21 +60,21 @@ error_reporting(0);
                     <div class="col-6 darhBoard-Music">
                         <div class="darhBoard-Music__Container">
                             <h1 class="text-white text-center pt-3">Tổng số bài hát</h1>
-                            <span class="quantity music-quantity" >50</span>
+                            <span class="quantity music-quantity"><?php echo count($arrMusic) ?></span>
                             <h3 class="text-white text-center pt-3">Bài hát mới nhất</h3>
-                            <span class="quantity music-quantity" >50</span>
+                            <span class="quantity music-quantity"><?php print_r($arrMusic[0]['title']) ?></span>
                             <h3 class="text-white text-center pt-3">Nghe nhiều nhất</h3>
-                            <span class="quantity music-quantity" >50</span>
+                            <span class="quantity music-quantity"><?php echo $songOutStanding ?></span>
                         </div>
                     </div>
                     <div class="col-6 darhBoard-User">
                         <div class="darhBoard-User__Container">
-                        <h1 class="text-white text-center pt-3">Tổng số người dùng</h1>
-                            <span class="quantity music-quantity" >50</span>
+                            <h1 class="text-white text-center pt-3">Tổng số người dùng</h1>
+                            <span class="quantity music-quantity"><?php echo count($arrUser) ?></span>
                             <h3 class="text-white text-center pt-3">Admin</h3>
-                            <span class="quantity music-quantity" >50</span>
+                            <span class="quantity music-quantity"><?php echo $adminQuantity ?></span>
                             <h3 class="text-white text-center pt-3">User</h3>
-                            <span class="quantity music-quantity" >50</span>
+                            <span class="quantity music-quantity"><?php echo $userQuantity ?></span>
                         </div>
                     </div>
                 </div>

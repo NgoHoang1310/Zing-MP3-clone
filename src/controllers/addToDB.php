@@ -173,6 +173,32 @@ class Insert
             echo "Lỗi" . $e->getMessage();
         }
     }
+
+    public function addToHistory()
+    {
+        try {
+            global $conn;
+            if (($id = $_REQUEST['currentID'] + 1)) {
+                $sql = "INSERT INTO historyListen (`song_id`) VALUES ('$id')";
+                //Kiểm tra tồn tại ID
+                // Thực thi câu truy vấn
+                if ($conn->query($sql) === TRUE) {
+                    echo "Chèn dữ liệu thành công.";
+                } else {
+                    echo "Lỗi: " . $sql . "<br>" . $conn->error;
+                }
+            } else {
+                echo "Không nhận được id";
+            }
+
+
+
+            // Đóng kết nối
+            // $conn->close();
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }
 //khởi tạo đối tượng
 
@@ -184,3 +210,4 @@ $manageSong->addPlaylist();
 $manageSong->addToPlaylist();
 $manageSong->renamePlaylist();
 $manageSong->addToFavourite();
+$manageSong->addToHistory();

@@ -96,6 +96,19 @@ class manageMusic
             echo "Lỗi" . $e->getMessage();
         }
     }
+
+    public function songOutStanding()
+    {
+        try {
+            global $conn;
+            $getSong = " SELECT song_id, COUNT(*) AS count FROM historyListen GROUP BY song_id ORDER BY count DESC LIMIT 1";
+            $data = $conn->query($getSong)->fetch_assoc()['song_id'];
+            $sql = "SELECT * FROM songs WHERE song_id = '$data'";
+            return $conn->query($sql);
+        } catch (Exception $e) {
+            echo "Lỗi" . $e->getMessage();
+        }
+    }
 }
 
 $music = new manageMusic();
@@ -103,3 +116,4 @@ $music = new manageMusic();
 $music->createMusic();
 $music->deleteMusic();
 $music->editMusic();
+

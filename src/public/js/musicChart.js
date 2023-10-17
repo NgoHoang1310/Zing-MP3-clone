@@ -16,9 +16,9 @@ const chartLine = () => {
       barThickness: 50,
       backgroundColor:[
         '#4a90e2',
-        '#4a90e2',
-        '#4a90e2',
-        '#4a90e2',
+        'red',
+        'green',
+        'yellow',
         '#4a90e2'
       ]
       // tension: 0.4
