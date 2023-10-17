@@ -1,25 +1,41 @@
-var a = 15;
-var b=60;
-const chartLine = () => {
+//lấy data biểu đồ
+let getChartData = function() {
+  fetch('../model/chart.php')
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function(datas) {
+      let arrPercent = [];
+      let arrSong = [];
+      datas.map(function (data) {
+        return arrSong.push(data.title), arrPercent.push(data.count);
+      })
+      // console.log(arrPercent)
+      chartLine(arrPercent, arrSong);
+    })
+    .catch(function (e) {
+      console.log(e);
+    })
+}
+
+
+const chartLine = (arrPercent, arrSong) => {
   const ctx = document.getElementById('myChart');
-  const xValues = ['16:00', '18:00', '20:00', '22:00', '00:00'];
   var image = new Image(50, 40);
   image.src = "https://marketplace.canva.com/EAFSNmv0C0k/1/0/1600w/canva-orange-illustration-relaxing-playlist-cover-G1lOYn2PS28.jpg";
   let data = {
-    labels: xValues,
+    labels: arrSong,
     datasets: [{
-      label: 'Anh chưa thương em đến vậy đâu',
-      data: (function() {
-          return [a++, b++, 81, 42, 33 ];
-      })(),
+      label: "Tỷ lệ: ",
+      data: arrPercent,
       borderColor: '#4a90e2',
       barThickness: 50,
-      backgroundColor:[
+      backgroundColor: [
+        ' #238f7b',
         '#4a90e2',
-        'red',
-        'green',
-        'yellow',
-        '#4a90e2'
+        '#f7d800',
+        '#ff6333',
+        '#e35050',
       ]
       // tension: 0.4
     },
@@ -32,6 +48,7 @@ const chartLine = () => {
     options: {
       plugins: {
         tooltip: {
+          backgroundColor: '#4dc5d3',
           usePointStyle: true,
           boxWidth: 80,
           boxHeight: 40,
@@ -43,9 +60,7 @@ const chartLine = () => {
                 rotation: 0
               };
             },
-            title: function () {
-              return null;
-            },
+
           }
         }
       },
@@ -59,12 +74,12 @@ const chartLine = () => {
           min: 0,
           max: 100,
           ticks: {
-            stepSize: 25 // Giãn cách 10 đơn vị
+            stepSize: 25 
           }
         },
       },
     }
   });
-  // console.log('hello chart'+a++);
 }
-chartLine();
+
+getChartData();

@@ -173,7 +173,7 @@ const controllerMusic = {
                             console.log("Đã chèn giá trị id vào cơ sở dữ liệu." + (songDefaultIndex));
                         }
                     };
-                    xhttp.open("POST", "../controllers/addToDB.php?currentID=" + (songDefaultIndex) + "&" + "userId=" + getUserId, true);
+                    xhttp.open("POST", "../controllers/addToDB.php?currentID=" + (songDefaultIndex) + "&" + "userId=" + getUserId + "&" + "songName=" + song[songDefaultIndex].title, true);
                     xhttp.send();
 
                 },

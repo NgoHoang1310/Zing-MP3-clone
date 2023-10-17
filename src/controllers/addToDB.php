@@ -178,8 +178,8 @@ class Insert
     {
         try {
             global $conn;
-            if (($id = $_REQUEST['currentID'] + 1)) {
-                $sql = "INSERT INTO historyListen (`song_id`) VALUES ('$id')";
+            if (($id = $_REQUEST['currentID'] + 1) && ($songName = $_REQUEST['songName'])) {
+                $sql = "INSERT INTO historyListen (`song_id`,`title`) VALUES ('$id','$songName')";
                 //Kiểm tra tồn tại ID
                 // Thực thi câu truy vấn
                 if ($conn->query($sql) === TRUE) {

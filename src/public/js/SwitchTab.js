@@ -20,7 +20,7 @@ const handleSwitch = () => {
                     break;
                 case 'chartTab':
                     navigateToPage('chartPage.php', ".container-content");
-                    setTimeout(chartLine, 200);
+                    setTimeout(getChartData, 200);
                     break;
                 case 'librarySongTab':
                     navigateToPage('librarySongPage.php', ".container-content");

@@ -7,5 +7,5 @@
             </span>
         </span>
     </div>
-    <canvas id="myChart" height="25" width="100%"></canvas>
+    <canvas id="myChart" height="30" width="100%"></canvas>
 </div>
